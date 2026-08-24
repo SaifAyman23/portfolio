@@ -1,3 +1,5 @@
+import { Experience } from './Experience';
 import Hero from './Hero';
+import { Projects } from './Projects';
 
-export { Hero };
+export { Experience, Hero, Projects };

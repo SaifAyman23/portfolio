@@ -70,7 +70,8 @@
    ============================================================ */
 @theme inline {
   /* Typography */
-  --font-heading: 'Linux Libertine', Georgia, 'Times New Roman', serif;
+  /* --font-heading: 'Linux Libertine', Georgia, 'Times New Roman', serif; */
+  --font-heading: 'Heavitas', Georgia, 'Times New Roman', serif;
   --font-body: 'Nexa', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Heavitas', var(--font-heading);
   --font-libertine: 'Linux Libertine', Georgia, 'Times New Roman', serif;
@@ -222,7 +223,7 @@
   h5,
   h6 {
     font-family: var(--font-heading);
-    font-weight: 700;
+    font-weight: 500;
     line-height: 1.15;
     letter-spacing: -0.01em;
     color: var(--foreground);

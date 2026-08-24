@@ -68,9 +68,9 @@ function Hero() {
       gsap.set(clouds, { yPercent: 125, autoAlpha: 0, force3D: true })
       gsap.set(plants, { yPercent: 140, autoAlpha: 0, force3D: true })
       gsap.set(fungi, { yPercent: 155, autoAlpha: 0, force3D: true })
-      gsap.set(heading, { scale: 1.16, transformOrigin: '50% 50%', force3D: true })
-      gsap.set(sub, { yPercent: 12, autoAlpha: 0.85, force3D: true })
-      gsap.set(content, { yPercent: 6, force3D: true })
+      gsap.set(heading, { scale: 1.08, transformOrigin: '50% 50%', force3D: true })
+      gsap.set(sub, { yPercent: 8, autoAlpha: 0.9, force3D: true })
+      gsap.set(content, { yPercent: 0, force3D: true })
       gsap.set([...clouds, ...plants, ...fungi, heading, sub, content], {
         willChange: 'transform, opacity',
       })
@@ -79,8 +79,8 @@ function Hero() {
         scrollTrigger: {
           trigger: sectionRef.current,
           start: 'top top',
-          end: '+=260%',
-          scrub: 1.6,
+          end: '+=400%',
+          scrub: 1.1,
           pin: pin,
           anticipatePin: 1,
           pinSpacing: true,
@@ -88,11 +88,9 @@ function Hero() {
         },
       })
 
-      tl.to(pin, { padding: 0, duration: 1, ease: 'none' }, 0)
-        .to(gradient, { borderRadius: 0, duration: 1, ease: 'none' }, 0)
-        .to(heading, { scale: 1, duration: 1, ease: 'power1.inOut' }, 0)
+      tl.to(heading, { scale: 1, duration: 1, ease: 'power1.inOut' }, 0)
         .to(sub, { yPercent: 0, autoAlpha: 1, duration: 1, ease: 'power1.inOut' }, 0)
-        .to(content, { yPercent: -14, duration: 1, ease: 'power1.inOut' }, 0)
+        .to(content, { yPercent: 0, duration: 1, ease: 'power1.inOut' }, 0)
         .to(
           clouds,
           {
@@ -126,20 +124,20 @@ function Hero() {
           },
           0.52,
         )
+        .to({}, { duration: 0.35 })
+        .to({}, { duration: 1 })
+        .to({}, { duration: 2 })
     }, sectionRef)
 
     return () => ctx.revert()
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative h-[300vh] overflow-hidden bg-background">
-      <div
-        ref={pinRef}
-        className="flex h-screen w-full max-w-full items-stretch justify-stretch overflow-hidden p-10"
-      >
+    <section ref={sectionRef} className="relative h-[200vh] overflow-hidden bg-background">
+      <div ref={pinRef} className="flex h-screen w-full max-w-full items-stretch justify-stretch overflow-hidden">
         <div
           ref={gradientRef}
-          className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden rounded-xl from-[#8AD2FF] to-[#DCF2FF]"
+          className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#8AD2FF] to-[#DCF2FF]"
         >
           <img
             src={bgPaper}
@@ -164,7 +162,7 @@ function Hero() {
             className="pointer-events-none absolute inset-0 overflow-hidden"
           >
             <img src={plant3} alt="" className="absolute end-[0%] -bottom-40 w-150 rotate-30" />
-            <img src={plants2} alt="" className="absolute end-[40%] bottom-20 w-100" />
+            <img src={plants2} alt="" className="absolute end-[40%] bottom-10 w-100" />
             <img src={plants4} alt="" className="absolute -start-[35%] -bottom-[45%] w-400" />
           </div>
 
