@@ -1,4 +1,3 @@
-
 import AccordionGallery, { type AccordionGalleryItem } from '../bits/AccordionGallery'
 
 import g1 from '@/assets/img/gallery/1.webp'
@@ -21,7 +20,6 @@ const items: AccordionGalleryItem[] = [
 ]
 
 export default function Gallery({ className }: GalleryProps) {
-
   return (
     <section className={cn('relative overflow-hidden bg-background px-6 pb-36', className)}>
       <div className="mx-auto max-w-7xl">

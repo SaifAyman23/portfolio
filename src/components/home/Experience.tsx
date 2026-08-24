@@ -1,12 +1,11 @@
-
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLayoutEffect, useRef } from 'react'
 
-import Beams from '@/components/bits/Beams';
-import DarkVeil from '@/components/bits/DarkVeil';
-import ScrollReveal from '@/components/bits/ScrollReveal';
-import Silk from '@/components/bits/Silk';
+import Beams from '@/components/bits/Beams'
+import DarkVeil from '@/components/bits/DarkVeil'
+import ScrollReveal from '@/components/bits/ScrollReveal'
+import Silk from '@/components/bits/Silk'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -36,7 +35,7 @@ export default function Experience() {
               scrub: 1.2,
               invalidateOnRefresh: true,
             },
-          },
+          }
         )
       })
     }, sectionRef)
@@ -58,21 +57,17 @@ export default function Experience() {
         </p>
 
         <div className="mt-16 grid grid-cols-4 gap-6">
-
-          <div className='col-span-3'>
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur
-              baseRotation={0}
-              blurStrength={15}
-            >
-              I got my start in frontend at Genius AI. React and TypeScript, shipping production builds alongside the team. Over time I took on code reviews and helped new interns find their footing.
+          <div className="col-span-3">
+            <ScrollReveal baseOpacity={0.1} enableBlur baseRotation={0} blurStrength={15}>
+              I got my start in frontend at Genius AI. React and TypeScript, shipping production
+              builds alongside the team. Over time I took on code reviews and helped new interns
+              find their footing.
             </ScrollReveal>
           </div>
 
           <div data-from="right" className="reveal-panel will-change-transform">
-            <div className='relative h-72 w-full overflow-hidden rounded-2xl border bg-card md:h-80'>
-              <div className='absolute inset-0'>
+            <div className="relative h-72 w-full overflow-hidden rounded-2xl border bg-card md:h-80">
+              <div className="absolute inset-0">
                 <Beams
                   beamWidth={3}
                   beamHeight={30}
@@ -88,39 +83,27 @@ export default function Experience() {
           </div>
         </div>
         <div className="mt-16 grid grid-cols-4 gap-6">
-
           <div data-from="left" className="reveal-panel will-change-transform">
-            <div className='relative h-72 w-full overflow-hidden rounded-2xl border bg-card md:h-80'>
-              <div className='absolute inset-0'>
-                <Silk
-                  speed={5}
-                  scale={1}
-                  color="#150069"
-                  noiseIntensity={1.5}
-                  rotation={0}
-                  />
+            <div className="relative h-72 w-full overflow-hidden rounded-2xl border bg-card md:h-80">
+              <div className="absolute inset-0">
+                <Silk speed={5} scale={1} color="#150069" noiseIntensity={1.5} rotation={0} />
               </div>
             </div>
           </div>
 
-          <div className='col-span-3'>
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur
-              baseRotation={0}
-              blurStrength={15}
-            >
-              At Digiations I built a Smart ERP system for enterprise workflows. Backend, frontend, database design, the whole pipeline. We worked close with the client to map how their business actually runs, and the system ships that today.
+          <div className="col-span-3">
+            <ScrollReveal baseOpacity={0.1} enableBlur baseRotation={0} blurStrength={15}>
+              At Digiations I built a Smart ERP system for enterprise workflows. Backend, frontend,
+              database design, the whole pipeline. We worked close with the client to map how their
+              business actually runs, and the system ships that today.
             </ScrollReveal>
           </div>
-
         </div>
 
         <div className="mt-16 grid grid-cols-4 gap-6">
-          
           <div data-from="center" className="reveal-panel col-span-full will-change-transform">
-            <div className='relative w-full overflow-hidden rounded-2xl border bg-card h-64'>
-              <div className='absolute inset-0'>
+            <div className="relative w-full overflow-hidden rounded-2xl border bg-card h-64">
+              <div className="absolute inset-0">
                 <DarkVeil
                   hueShift={0}
                   noiseIntensity={0}
@@ -132,17 +115,13 @@ export default function Experience() {
               </div>
             </div>
           </div>
-          <div className='col-span-4'>
-            <ScrollReveal
-              baseOpacity={0.1}
-              enableBlur
-              baseRotation={0}
-              blurStrength={15}
-            >
-              Beyond the job titles, I build. Delivery platforms, AI career tools, live-streaming infrastructure. Different problems, same approach: understand the system end to end, then make it work.
+          <div className="col-span-4">
+            <ScrollReveal baseOpacity={0.1} enableBlur baseRotation={0} blurStrength={15}>
+              Beyond the job titles, I build. Delivery platforms, AI career tools, live-streaming
+              infrastructure. Different problems, same approach: understand the system end to end,
+              then make it work.
             </ScrollReveal>
           </div>
-
         </div>
       </div>
     </section>

@@ -11,7 +11,15 @@ interface ProjectCardProps {
   className?: string
 }
 
-export function ProjectCard({ eyebrow, title, description, tags, image, href, className }: ProjectCardProps) {
+export function ProjectCard({
+  eyebrow,
+  title,
+  description,
+  tags,
+  image,
+  href,
+  className,
+}: ProjectCardProps) {
   const content = (
     <Card
       className={`flex w-full overflow-hidden border-3 border-black bg-card md:flex-row md:h-full ${className ?? ''}`.trim()}
@@ -26,7 +34,9 @@ export function ProjectCard({ eyebrow, title, description, tags, image, href, cl
             decoding="async"
           />
         ) : (
-          <div className="absolute inset-0 grid place-items-center p-6 text-sm text-muted-foreground">Image</div>
+          <div className="absolute inset-0 grid place-items-center p-6 text-sm text-muted-foreground">
+            Image
+          </div>
         )}
       </div>
 

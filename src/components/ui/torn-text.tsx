@@ -12,7 +12,7 @@ interface TornTextProps {
 
 export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText(
   { text, images, as: Tag = 'h1', className },
-  forwardedRef,
+  forwardedRef
 ) {
   const localRef = useRef<HTMLElement>(null)
 
@@ -24,7 +24,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
 
   const normalized = useMemo(
     () => images.map((img) => (typeof img === 'string' ? { src: img } : img)),
-    [images],
+    [images]
   )
 
   useLayoutEffect(() => {
@@ -68,7 +68,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
               ease: 'power2.in',
               force3D: true,
             },
-            0,
+            0
           )
           .to(
             charImgs,
@@ -81,7 +81,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
               ease: 'back.out(1.18)',
               force3D: true,
             },
-            0.06,
+            0.06
           )
       }
 
@@ -100,7 +100,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
               ease: 'power2.in',
               force3D: true,
             },
-            0,
+            0
           )
           .to(
             charTexts,
@@ -113,7 +113,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
               ease: 'power2.out',
               force3D: true,
             },
-            0.05,
+            0.05
           )
       }
 
@@ -146,13 +146,17 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
         if (!item) {
           return (
             <span key={`char-${i}`} className="char relative inline-block px-[0.015em]">
-              <span className="char-text inline-block leading-none will-change-transform">{char}</span>
+              <span className="char-text inline-block leading-none will-change-transform">
+                {char}
+              </span>
             </span>
           )
         }
         return (
           <span key={`char-${i}-${item.src}`} className="char relative inline-block px-[0.015em]">
-            <span className="char-text inline-block leading-none will-change-transform">{char}</span>
+            <span className="char-text inline-block leading-none will-change-transform">
+              {char}
+            </span>
             <img
               src={item.src}
               alt=""

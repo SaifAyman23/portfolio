@@ -4,7 +4,8 @@ import footerBg from '@/assets/img/footer-bg.webp'
 import name from '@/assets/img/Saif Eldin Ayman.svg'
 import { CONTACT } from '@/lib/constants'
 
-const classes = "flex items-center gap-2 rounded-full border border-white/25 bg-linear-to-br from-white/10 to-transparent px-4 py-1.5 text-xl text-muted-foreground hover:text-white backdrop-blur-sm transition duration-300 hover:bg-white/20"
+const classes =
+  'flex items-center gap-2 rounded-full border border-white/25 bg-linear-to-br from-white/10 to-transparent px-4 py-1.5 text-xl text-muted-foreground hover:text-white backdrop-blur-sm transition duration-300 hover:bg-white/20'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -13,8 +14,8 @@ export default function Footer() {
   const hasLinkedin = CONTACT.linkedin !== ''
 
   return (
-    <footer className="relative bg-background px-6 pb-8 pt-4">
-      <div className="relative mx-auto max-w-7xl overflow-hidden rounded-3xl border bg-black">
+    <footer className="relative px-10 bg-background">
+      <div className="relative mx-auto overflow-hidden rounded-t-3xl border bg-black">
         <img
           src={footerBg}
           alt=""
@@ -27,32 +28,19 @@ export default function Footer() {
         <div className="relative flex flex-col w-full py-10 sm:py-12">
           <div className="flex items-center justify-center gap-x-6 gap-y-3 text-sm">
             {hasEmail && (
-              <a
-                href={`mailto:${CONTACT.email}`}
-                className={classes}
-              >
+              <a href={`mailto:${CONTACT.email}`} className={classes}>
                 <Mail className="h-5 w-5" aria-hidden="true" />
                 <span>{CONTACT.email}</span>
               </a>
             )}
             {hasGithub && (
-              <a
-                href={CONTACT.github}
-                target="_blank"
-                rel="noreferrer"
-                className={classes}
-              >
+              <a href={CONTACT.github} target="_blank" rel="noreferrer" className={classes}>
                 <Github className="h-5 w-5" aria-hidden="true" />
                 <span>GitHub</span>
               </a>
             )}
             {hasLinkedin && (
-              <a
-                href={CONTACT.linkedin}
-                target="_blank"
-                rel="noreferrer"
-                className={classes}
-              >
+              <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className={classes}>
                 <Linkedin className="h-5 w-5" aria-hidden="true" />
                 <span>LinkedIn</span>
               </a>
@@ -71,14 +59,11 @@ export default function Footer() {
           >
             Saif Eldin Ayman
           </h2> */}
-          <img
-            src={name}
-            alt="Saif Eldin Ayman"
-            className="mx-auto mt-16 select-none w-2/3"
-          />
+          <img src={name} alt="Saif Eldin Ayman" className="mx-auto mt-16 select-none w-2/3" />
 
           <p className="mt-6 text-center text-xs uppercase tracking-[0.25em] text-muted-foreground/70">
-            &copy; {year} Saif Eldin Ayman &middot; Ship it &amp; forget it &reg; &middot; All rights reserved
+            &copy; {year} Saif Eldin Ayman &middot; Ship it &amp; forget it &reg; &middot; All
+            rights reserved
           </p>
         </div>
       </div>

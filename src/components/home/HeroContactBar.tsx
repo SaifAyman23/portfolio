@@ -2,7 +2,8 @@ import { Github, Linkedin, Mail } from 'lucide-react'
 
 import { CONTACT } from '@/lib/constants'
 
-const classes = "flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition duration-300 hover:bg-white/20"
+const classes =
+  'flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-sm font-medium text-white backdrop-blur-sm transition duration-300 hover:bg-white/20'
 
 export default function HeroContactBar() {
   const hasEmail = CONTACT.email !== ''
@@ -15,8 +16,7 @@ export default function HeroContactBar() {
     <div className="absolute inset-x-0 top-0 z-30 flex  items-center justify-center gap-3 px-8 py-5 md:px-12">
       <div className="flex items-center text-sm text-white/85">
         {hasEmail && (
-          <a href={`mailto:${CONTACT.email}`}
-          className={classes}>
+          <a href={`mailto:${CONTACT.email}`} className={classes}>
             <Mail className="h-4 w-4" aria-hidden="true" />
             <span>{CONTACT.email}</span>
           </a>
@@ -25,23 +25,13 @@ export default function HeroContactBar() {
 
       <div className="flex items-center gap-2.5">
         {hasGithub && (
-          <a
-            href={CONTACT.github}
-            target="_blank"
-            rel="noreferrer"
-            className={classes}
-          >
+          <a href={CONTACT.github} target="_blank" rel="noreferrer" className={classes}>
             <Github className="h-4 w-4" aria-hidden="true" />
             GitHub
           </a>
         )}
         {hasLinkedin && (
-          <a
-            href={CONTACT.linkedin}
-            target="_blank"
-            rel="noreferrer"
-            className={classes}
-          >
+          <a href={CONTACT.linkedin} target="_blank" rel="noreferrer" className={classes}>
             <Linkedin className="h-4 w-4" aria-hidden="true" />
             LinkedIn
           </a>

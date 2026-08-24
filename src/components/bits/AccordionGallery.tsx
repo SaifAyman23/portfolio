@@ -1,33 +1,41 @@
-import { gsap } from 'gsap';
-import { useRef, useEffect, useState, useCallback, type CSSProperties, type KeyboardEvent, type MouseEvent } from 'react';
+import { gsap } from 'gsap'
+import {
+  useRef,
+  useEffect,
+  useState,
+  useCallback,
+  type CSSProperties,
+  type KeyboardEvent,
+  type MouseEvent,
+} from 'react'
 
 export interface AccordionGalleryItem {
-  image: string;
-  label?: string;
-  link?: string;
-  alt?: string;
+  image: string
+  label?: string
+  link?: string
+  alt?: string
 }
 
 export interface AccordionGalleryProps {
-  items?: AccordionGalleryItem[];
-  defaultIndex?: number;
-  accentColor?: string;
-  overlayColor?: string;
-  textColor?: string;
-  height?: number;
-  gap?: number;
-  radius?: number;
-  expandRatio?: number;
-  orientation?: 'horizontal' | 'vertical';
-  duration?: number;
-  ease?: string;
-  parallax?: number;
-  tilt?: number;
-  stagger?: number;
-  trigger?: 'hover' | 'click';
-  showLabels?: boolean;
-  grayscale?: boolean;
-  className?: string;
+  items?: AccordionGalleryItem[]
+  defaultIndex?: number
+  accentColor?: string
+  overlayColor?: string
+  textColor?: string
+  height?: number
+  gap?: number
+  radius?: number
+  expandRatio?: number
+  orientation?: 'horizontal' | 'vertical'
+  duration?: number
+  ease?: string
+  parallax?: number
+  tilt?: number
+  stagger?: number
+  trigger?: 'hover' | 'click'
+  showLabels?: boolean
+  grayscale?: boolean
+  className?: string
 }
 
 const DEFAULT_ITEMS: AccordionGalleryItem[] = [
@@ -35,8 +43,8 @@ const DEFAULT_ITEMS: AccordionGalleryItem[] = [
   { image: 'https://picsum.photos/id/1018/900/1200', label: 'Ridgeline', link: '#' },
   { image: 'https://picsum.photos/id/1039/900/1200', label: 'Falls', link: '#' },
   { image: 'https://picsum.photos/id/1043/900/1200', label: 'Harbour', link: '#' },
-  { image: 'https://picsum.photos/id/1044/900/1200', label: 'Skyline', link: '#' }
-];
+  { image: 'https://picsum.photos/id/1044/900/1200', label: 'Skyline', link: '#' },
+]
 
 const AccordionGallery = ({
   items = DEFAULT_ITEMS,
@@ -57,57 +65,57 @@ const AccordionGallery = ({
   trigger = 'hover',
   showLabels = true,
   grayscale = true,
-  className = ''
+  className = '',
 }: AccordionGalleryProps) => {
-  const rootRef = useRef<HTMLDivElement>(null);
-  const panelRefs = useRef<(HTMLElement | null)[]>([]);
-  const mediaRefs = useRef<(HTMLElement | null)[]>([]);
-  const barRefs = useRef<(HTMLElement | null)[]>([]);
-  const textRefs = useRef<(HTMLElement | null)[]>([]);
-  const tlRef = useRef<gsap.core.Timeline | null>(null);
-  const firstRunRef = useRef(true);
-  const mediaSizeRef = useRef(320);
+  const rootRef = useRef<HTMLDivElement>(null)
+  const panelRefs = useRef<(HTMLElement | null)[]>([])
+  const mediaRefs = useRef<(HTMLElement | null)[]>([])
+  const barRefs = useRef<(HTMLElement | null)[]>([])
+  const textRefs = useRef<(HTMLElement | null)[]>([])
+  const tlRef = useRef<gsap.core.Timeline | null>(null)
+  const firstRunRef = useRef(true)
+  const mediaSizeRef = useRef(320)
 
-  const vertical = orientation === 'vertical';
-  const count = items.length;
-  const [active, setActive] = useState(Math.min(Math.max(defaultIndex, 0), count - 1));
+  const vertical = orientation === 'vertical'
+  const count = items.length
+  const [active, setActive] = useState(Math.min(Math.max(defaultIndex, 0), count - 1))
 
   const prefersReduced =
     typeof window !== 'undefined' && window.matchMedia
       ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      : false;
+      : false
 
-  const overlayBg = `linear-gradient(to top, ${overlayColor}CC 0%, transparent 45%)`;
+  const overlayBg = `linear-gradient(to top, ${overlayColor}CC 0%, transparent 45%)`
 
   const applyLayout = useCallback(
     (animate: boolean) => {
-      const panels = panelRefs.current;
-      if (!panels.length) return;
+      const panels = panelRefs.current
+      if (!panels.length) return
 
-      const r = Math.min(Math.max(expandRatio, 0.2), 0.9);
-      const grow = count > 1 ? (r * (count - 1)) / (1 - r) : 1;
-      const mediaSize = mediaSizeRef.current;
+      const r = Math.min(Math.max(expandRatio, 0.2), 0.9)
+      const grow = count > 1 ? (r * (count - 1)) / (1 - r) : 1
+      const mediaSize = mediaSizeRef.current
 
-      tlRef.current?.kill();
-      const dur = animate && !prefersReduced ? duration : 0;
-      const tl = gsap.timeline();
+      tlRef.current?.kill()
+      const dur = animate && !prefersReduced ? duration : 0
+      const tl = gsap.timeline()
 
       panels.forEach((panel, i) => {
-        if (!panel) return;
-        const isActive = i === active;
-        const media = mediaRefs.current[i];
-        const bar = barRefs.current[i];
-        const text = textRefs.current[i];
+        if (!panel) return
+        const isActive = i === active
+        const media = mediaRefs.current[i]
+        const bar = barRefs.current[i]
+        const text = textRefs.current[i]
 
-        const rot = isActive ? 0 : i < active ? tilt : -tilt;
-        const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot };
+        const rot = isActive ? 0 : i < active ? tilt : -tilt
+        const rotProp = vertical ? { rotateX: -rot } : { rotateY: rot }
 
-        tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, duration: dur, ease }, 0);
+        tl.to(panel, { flexGrow: isActive ? grow : 1, ...rotProp, duration: dur, ease }, 0)
 
         if (media) {
-          const drift = Math.max(-1.5, Math.min(1.5, active - i));
-          const shift = drift * parallax * mediaSize * 0.06;
-          const gray = grayscale ? (isActive ? 0 : 1) : 0;
+          const drift = Math.max(-1.5, Math.min(1.5, active - i))
+          const shift = drift * parallax * mediaSize * 0.06
+          const gray = grayscale ? (isActive ? 0 : 1) : 0
           tl.to(
             media,
             {
@@ -118,22 +126,26 @@ const AccordionGallery = ({
               '--ag-gray': gray,
               '--ag-dim': isActive ? 0 : 0.35,
               duration: dur,
-              ease
+              ease,
             },
             0
-          );
+          )
         }
 
         if (showLabels && bar && text) {
           if (isActive) {
-            tl.to([bar, text], { opacity: 1, x: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger }, 0);
+            tl.to(
+              [bar, text],
+              { opacity: 1, x: 0, duration: dur, ease, stagger: prefersReduced ? 0 : stagger },
+              0
+            )
           } else {
-            tl.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.6, ease }, 0);
+            tl.to([bar, text], { opacity: 0, x: -14, duration: dur * 0.6, ease }, 0)
           }
         }
-      });
+      })
 
-      tlRef.current = tl;
+      tlRef.current = tl
     },
     [
       active,
@@ -147,93 +159,96 @@ const AccordionGallery = ({
       grayscale,
       showLabels,
       stagger,
-      prefersReduced
+      prefersReduced,
     ]
-  );
+  )
 
   useEffect(() => {
-    const el = rootRef.current;
-    if (!el) return;
+    const el = rootRef.current
+    if (!el) return
 
     const measure = () => {
-      const rect = el.getBoundingClientRect();
-      const total = vertical ? rect.height : rect.width;
-      const usable = Math.max(total - gap * (count - 1), 120);
-      const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22);
-      mediaSizeRef.current = size;
-      el.style.setProperty('--ag-media-size', `${size}px`);
-      applyLayout(!firstRunRef.current);
-    };
+      const rect = el.getBoundingClientRect()
+      const total = vertical ? rect.height : rect.width
+      const usable = Math.max(total - gap * (count - 1), 120)
+      const size = Math.max(140, usable * Math.min(Math.max(expandRatio, 0.2), 0.9) * 1.22)
+      mediaSizeRef.current = size
+      el.style.setProperty('--ag-media-size', `${size}px`)
+      applyLayout(!firstRunRef.current)
+    }
 
-    measure();
-    const ro = new ResizeObserver(measure);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [applyLayout, gap, count, expandRatio, vertical]);
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [applyLayout, gap, count, expandRatio, vertical])
 
   useEffect(() => {
-    applyLayout(!firstRunRef.current);
-    firstRunRef.current = false;
-  }, [applyLayout]);
+    applyLayout(!firstRunRef.current)
+    firstRunRef.current = false
+  }, [applyLayout])
 
   useEffect(
     () => () => {
-      tlRef.current?.kill();
+      tlRef.current?.kill()
     },
     []
-  );
+  )
 
   const handleEnter = (i: number) => {
-    if (trigger === 'hover') setActive(i);
-  };
+    if (trigger === 'hover') setActive(i)
+  }
 
   const handleClick = (i: number, e: MouseEvent) => {
     if (i !== active) {
-      e.preventDefault();
-      setActive(i);
+      e.preventDefault()
+      setActive(i)
     }
-  };
+  }
 
   const handleKeyDown = (i: number, e: KeyboardEvent) => {
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActive((i + 1) % count);
+      e.preventDefault()
+      setActive((i + 1) % count)
     } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActive((i - 1 + count) % count);
+      e.preventDefault()
+      setActive((i - 1 + count) % count)
     }
-  };
+  }
 
   return (
     <div
       ref={rootRef}
       className={`flex ${vertical ? 'flex-col' : 'flex-row'} w-full max-w-full [perspective:1400px] max-[520px]:!flex-col max-[520px]:[perspective:none] ${className}`}
-      style={{ gap: `${gap}px`, height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px` }}
+      style={{
+        gap: `${gap}px`,
+        height: vertical ? `${Math.round(height * 1.6)}px` : `${height}px`,
+      }}
       role="list"
       aria-label="Image accordion gallery"
     >
       {items.map((item, i) => {
-        const isActive = i === active;
-        const Tag = (item.link ? 'a' : 'div') as 'a';
+        const isActive = i === active
+        const Tag = (item.link ? 'a' : 'div') as 'a'
         return (
           <Tag
             key={i}
             ref={(el: HTMLElement | null) => {
-              panelRefs.current[i] = el;
+              panelRefs.current[i] = el
             }}
             className="group relative block min-w-0 min-h-0 flex-[1_1_0] overflow-hidden bg-[#0a0713] no-underline outline-none [transform-style:preserve-3d] [transform-origin:center] [box-shadow:0_10px_30px_-18px_rgba(0,0,0,0.8)] focus-visible:[box-shadow:0_0_0_2px_var(--ag-accent),0_10px_30px_-18px_rgba(0,0,0,0.8)] max-[520px]:min-h-[84px] max-[520px]:!transform-none"
             style={
               {
                 borderRadius: `${radius}px`,
                 '--ag-accent': accentColor,
-                willChange: 'flex-grow, transform'
+                willChange: 'flex-grow, transform',
               } as CSSProperties
             }
             // href={item.link || undefined}
-            onClick={e => handleClick(i, e)}
+            onClick={(e) => handleClick(i, e)}
             onMouseEnter={() => handleEnter(i)}
             onFocus={() => setActive(i)}
-            onKeyDown={e => handleKeyDown(i, e)}
+            onKeyDown={(e) => handleKeyDown(i, e)}
             role="listitem"
             tabIndex={0}
             aria-current={isActive ? 'true' : undefined}
@@ -242,13 +257,13 @@ const AccordionGallery = ({
             <span className="absolute inset-0 overflow-hidden [border-radius:inherit]">
               <span
                 ref={(el: HTMLElement | null) => {
-                  mediaRefs.current[i] = el;
+                  mediaRefs.current[i] = el
                 }}
                 className="absolute top-1/2 left-1/2 [filter:grayscale(var(--ag-gray,1))]"
                 style={{
                   width: vertical ? '100%' : 'var(--ag-media-size, 320px)',
                   height: vertical ? 'var(--ag-media-size, 320px)' : '100%',
-                  willChange: 'transform, filter'
+                  willChange: 'transform, filter',
                 }}
               >
                 <img
@@ -271,17 +286,17 @@ const AccordionGallery = ({
               >
                 <span
                   ref={(el: HTMLElement | null) => {
-                    barRefs.current[i] = el;
+                    barRefs.current[i] = el
                   }}
                   className="h-[26px] w-[3px] flex-none rounded-[3px] opacity-0"
                   style={{
                     background: accentColor,
-                    boxShadow: `0 0 12px color-mix(in srgb, ${accentColor} 60%, transparent)`
+                    boxShadow: `0 0 12px color-mix(in srgb, ${accentColor} 60%, transparent)`,
                   }}
                 />
                 <span
                   ref={(el: HTMLElement | null) => {
-                    textRefs.current[i] = el;
+                    textRefs.current[i] = el
                   }}
                   className="overflow-hidden text-ellipsis whitespace-nowrap text-[clamp(1rem,1.4vw,1.4rem)] font-semibold tracking-[0.01em] opacity-0 [text-shadow:0_2px_14px_rgba(0,0,0,0.55)]"
                   style={{ color: textColor }}
@@ -291,10 +306,10 @@ const AccordionGallery = ({
               </span>
             )}
           </Tag>
-        );
+        )
       })}
     </div>
-  );
-};
+  )
+}
 
-export default AccordionGallery;
+export default AccordionGallery

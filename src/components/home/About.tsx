@@ -1,4 +1,3 @@
-
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLayoutEffect, useRef } from 'react'
@@ -19,8 +18,14 @@ interface AboutPhoto {
 
 const photos: AboutPhoto[] = [
   { src: photoLeft, className: 'h-[360px] w-[280px] will-change-transform sm:size-170' },
-  { src: photoMiddle, className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[360px]' },
-  { src: photoRight, className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[420px]' },
+  {
+    src: photoMiddle,
+    className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[360px]',
+  },
+  {
+    src: photoRight,
+    className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[420px]',
+  },
 ]
 
 const SCATTER = [
@@ -60,7 +65,7 @@ export default function About() {
               start: 'top 85%',
               once: true,
             },
-          },
+          }
         )
       }
 
@@ -85,13 +90,27 @@ export default function About() {
             invalidateOnRefresh: true,
           },
         })
-        .to(items[0], { ...(photos[0].scatter ?? SCATTER[0]), duration: 1, ease: 'sine.inOut', force3D: true }, 0)
+        .to(
+          items[0],
+          { ...(photos[0].scatter ?? SCATTER[0]), duration: 1, ease: 'sine.inOut', force3D: true },
+          0
+        )
         .to(
           items[1],
-          { ...(photos[1].scatter ?? SCATTER[1]), scale: 1.05, duration: 1, ease: 'sine.inOut', force3D: true },
-          0,
+          {
+            ...(photos[1].scatter ?? SCATTER[1]),
+            scale: 1.05,
+            duration: 1,
+            ease: 'sine.inOut',
+            force3D: true,
+          },
+          0
         )
-        .to(items[2], { ...(photos[2].scatter ?? SCATTER[2]), duration: 1, ease: 'sine.inOut', force3D: true }, 0)
+        .to(
+          items[2],
+          { ...(photos[2].scatter ?? SCATTER[2]), duration: 1, ease: 'sine.inOut', force3D: true },
+          0
+        )
     }, sectionRef)
 
     return () => ctx.revert()
@@ -116,13 +135,7 @@ export default function About() {
           className="relative mx-auto mt-10 flex h-[420px] max-w-full items-center justify-center sm:h-[520px]"
         >
           {photos.map((photo) => (
-            <div
-              key={photo.src}
-              className={cn(
-                'about-photo absolute ',
-                photo.className,
-              )}
-            >
+            <div key={photo.src} className={cn('about-photo absolute ', photo.className)}>
               <img
                 src={photo.src}
                 alt=""
@@ -138,7 +151,8 @@ export default function About() {
         <blockquote className="mx-auto mt-14 max-w-3xl text-center">
           <p className="font-libertine text-2xl italic leading-relaxed text-foreground sm:text-3xl">
             &ldquo;I build software. When I&apos;m not shipping code, I&apos;m behind a camera,
-            cutting footage, or out on my bike. Different crafts, same obsession with the details.&rdquo;
+            cutting footage, or out on my bike. Different crafts, same obsession with the
+            details.&rdquo;
           </p>
           <footer className="font-libertine mt-5 text-lg italic text-muted-foreground">
             coding, video editing, photography, long rides. A cool guy indeed.

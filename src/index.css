@@ -282,7 +282,7 @@
     font-size: 0.8125rem;
     line-height: 1.4;
     color: var(--muted-foreground);
-    @apply  text-accent-sky dark:text-accent-sky;
+    @apply text-accent-sky dark:text-accent-sky;
   }
 
   /* ── Small text ── */

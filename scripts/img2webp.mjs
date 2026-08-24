@@ -80,7 +80,7 @@ async function main() {
 
   if (args.inputs.length === 0) {
     console.error(
-      'Usage: node scripts/img2webp.mjs <file-or-folder...> [--quality=82] [-q 82] [--lossless] [--width=1600] [--height=1600]',
+      'Usage: node scripts/img2webp.mjs <file-or-folder...> [--quality=82] [-q 82] [--lossless] [--width=1600] [--height=1600]'
     )
     process.exitCode = 1
     return
@@ -114,17 +114,19 @@ async function main() {
   const width = Math.max(...rows.map((r) => r.output.length)) + 2
   for (const row of rows) {
     if (row.skipped) {
-      console.log(`${row.output.padEnd(width)} ${formatKB(row.before).padStart(9)} -> kept (file locked)`)
+      console.log(
+        `${row.output.padEnd(width)} ${formatKB(row.before).padStart(9)} -> kept (file locked)`
+      )
       continue
     }
     const saved = 100 - Math.round((row.after / row.before) * 100)
     console.log(
-      `${row.output.padEnd(width)} ${formatKB(row.before).padStart(9)} -> ${formatKB(row.after).padStart(9)}  (-${saved}%)`,
+      `${row.output.padEnd(width)} ${formatKB(row.before).padStart(9)} -> ${formatKB(row.after).padStart(9)}  (-${saved}%)`
     )
   }
   console.log('-'.repeat(width + 34))
   console.log(
-    `${`Total (${rows.length} files)`.padEnd(width)} ${formatKB(totalBefore).padStart(9)} -> ${formatKB(totalAfter).padStart(9)}  (-${100 - Math.round((totalAfter / totalBefore) * 100)}%)`,
+    `${`Total (${rows.length} files)`.padEnd(width)} ${formatKB(totalBefore).padStart(9)} -> ${formatKB(totalAfter).padStart(9)}  (-${100 - Math.round((totalAfter / totalBefore) * 100)}%)`
   )
 }
 

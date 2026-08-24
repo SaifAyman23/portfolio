@@ -1,4 +1,3 @@
-
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLayoutEffect, useRef } from 'react'
@@ -101,7 +100,7 @@ function Hero() {
             stagger: { each: 0.09, from: 'random' },
             ease: 'sine.out',
           },
-          0.08,
+          0.08
         )
         .to(
           plants,
@@ -112,7 +111,7 @@ function Hero() {
             stagger: { each: 0.09, from: 'random' },
             ease: 'sine.out',
           },
-          0.3,
+          0.3
         )
         .to(
           fungi,
@@ -123,7 +122,7 @@ function Hero() {
             stagger: { each: 0.1, from: 'random' },
             ease: 'sine.out',
           },
-          0.52,
+          0.52
         )
         .to({}, { duration: 0.35 })
         .to({}, { duration: 1 })
@@ -135,7 +134,10 @@ function Hero() {
 
   return (
     <section ref={sectionRef} className="relative h-[200vh] overflow-hidden bg-background">
-      <div ref={pinRef} className="flex h-screen w-full max-w-full items-stretch justify-stretch overflow-hidden">
+      <div
+        ref={pinRef}
+        className="flex h-screen w-full max-w-full items-stretch justify-stretch overflow-hidden"
+      >
         <div
           ref={gradientRef}
           className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#68bdf2] to-[#DCF2FF]"
