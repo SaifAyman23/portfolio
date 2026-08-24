@@ -78,6 +78,9 @@
   --font-nexa: 'Nexa', 'DM Sans', ui-sans-serif, system-ui, sans-serif;
   --font-heavitas: 'Heavitas', var(--font-heading);
 
+  /* Accent */
+  --color-accent-sky: #68bdf2;
+
   /* Radius scale */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -279,6 +282,7 @@
     font-size: 0.8125rem;
     line-height: 1.4;
     color: var(--muted-foreground);
+    @apply  text-accent-sky dark:text-accent-sky;
   }
 
   /* ── Small text ── */

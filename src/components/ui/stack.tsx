@@ -12,43 +12,50 @@ interface StackProps {
   className?: string
 }
 
+const STICKY_TOP = 96
+const TOP_STEP = 18
+const SCALE_PER_DEPTH = 0.045
+
 export function Stack({ children, className }: StackProps) {
   const rootRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    const items = gsap.utils.toArray<HTMLElement>('.stack-item', rootRef.current)
+    if (items.length === 0) return
 
     const ctx = gsap.context(() => {
-      const cards = gsap.utils.toArray<HTMLElement>('.stack-card', rootRef.current)
-      if (cards.length === 0) return
-
-      const STACK_TOP = 18
-
-      cards.forEach((card, i) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: `top ${STACK_TOP + i * 2}%`,
-          endTrigger: rootRef.current,
-          end: 'bottom bottom',
-          pin: card,
-          pinSpacing: false,
-          anticipatePin: 1,
-        })
+      items.forEach((item, i) => {
+        item.style.position = 'sticky'
+        item.style.top = `${STICKY_TOP + i * (reduceMotion ? 0 : TOP_STEP)}px`
       })
 
-      cards.forEach((card, i) => {
-        if (i === cards.length - 1) return
+      if (reduceMotion) return
+
+      const cards = items.map((item) => item.querySelector<HTMLElement>('.stack-card'))
+      const total = cards.length
+
+      items.forEach((item, i) => {
+        if (i === total - 1) return
+        const card = cards[i]
+        if (!card) return
+
+        const depth = total - 1 - i
+        const targetScale = Math.max(0.8, 1 - depth * SCALE_PER_DEPTH)
 
         gsap.to(card, {
-          scale: 0.96 - i * 0.008,
+          scale: targetScale,
           transformOrigin: 'top center',
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
-            trigger: cards[i + 1],
-            start: 'top 85%',
-            end: `top ${STACK_TOP + (i + 1) * 2}%`,
+            trigger: items[i + 1],
+            start: 'top bottom',
+            end: `top ${STICKY_TOP + (i + 1) * TOP_STEP}`,
             scrub: true,
+            invalidateOnRefresh: true,
           },
         })
       })

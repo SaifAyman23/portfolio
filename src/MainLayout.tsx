@@ -1,7 +1,5 @@
 import { Outlet } from 'react-router-dom'
 
-import { Navbar } from '@/components/layout'
-
 const MainLayout = () => {
   return (
     <div className="flex min-h-dvh flex-col">

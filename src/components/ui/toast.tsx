@@ -1,6 +1,6 @@
 'use client'
 import { AnimatePresence, motion } from 'framer-motion'
-import { CheckCircle, XCircle, AlertTriangle, Info, X } from 'lucide-react'
+import { CheckCircle, XCircle, AlertTriangle, Info, X, type LucideIcon } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
@@ -27,7 +27,7 @@ export interface ToastProps {
 const typeConfig: Record<
   ToastType,
   {
-    icon: React.ElementType
+    icon: LucideIcon
     iconClass: string
     barClass: string
   }

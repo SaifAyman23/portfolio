@@ -23,6 +23,7 @@ import lTorn from '../../assets/img/hero/Saif Eldin/l torn 1.webp'
 import nTorn from '../../assets/img/hero/Saif Eldin/n torn 1.webp'
 import sTorn from '../../assets/img/hero/Saif Eldin/s torn 2.webp'
 
+import HeroContactBar from '@/components/home/HeroContactBar'
 import { TornText } from '@/components/ui/torn-text'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -137,8 +138,10 @@ function Hero() {
       <div ref={pinRef} className="flex h-screen w-full max-w-full items-stretch justify-stretch overflow-hidden">
         <div
           ref={gradientRef}
-          className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#8AD2FF] to-[#DCF2FF]"
+          className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#68bdf2] to-[#DCF2FF]"
         >
+          <HeroContactBar />
+
           <img
             src={bgPaper}
             alt=""

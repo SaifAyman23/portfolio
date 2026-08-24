@@ -15,3 +15,9 @@ export const ROUTES = {
   VERIFY_OTP: '/verify-otp',
   RESET_PASSWORD: '/reset-password',
 } as const
+
+export const CONTACT = {
+  email: import.meta.env.VITE_CONTACT_EMAIL || '',
+  github: import.meta.env.VITE_GITHUB_URL || '',
+  linkedin: import.meta.env.VITE_LINKEDIN_URL || '',
+} as const

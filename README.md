@@ -68,11 +68,14 @@ Red pipeline means no merge. Performance targets follow the Web Vitals playbook 
 
 Copy `.env.example` to `.env`:
 
-| Variable        | Purpose                              |
-| --------------- | ------------------------------------ |
-| `VITE_API_URL`  | Backend API base URL                 |
-| `VITE_APP_NAME` | Display name                         |
-| `VITE_SITE_URL` | Canonical URL (SEO, sitemap, robots) |
+| Variable             | Purpose                              |
+| -------------------- | ------------------------------------ |
+| `VITE_API_URL`       | Backend API base URL                 |
+| `VITE_APP_NAME`      | Display name                         |
+| `VITE_SITE_URL`      | Canonical URL (SEO, sitemap, robots) |
+| `VITE_CONTACT_EMAIL` | Email shown in hero contact bar      |
+| `VITE_GITHUB_URL`    | GitHub profile link                  |
+| `VITE_LINKEDIN_URL`  | LinkedIn profile link                |
 
 Never commit populated `.env` files.
 
