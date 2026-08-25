@@ -207,7 +207,7 @@ function Hero() {
           className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#68bdf2] to-[#DCF2FF] dark:from-[#0838a9] dark:to-[#040429]"
         >
           <HeroContactBar />
-          <HeroHoverCue visible={nameLoaded} />
+          <HeroHoverCue visible={nameLoaded && !atTop} />
           <HeroHint visible={!nameLoaded || atTop} loading={!nameLoaded} />
 
           <img
