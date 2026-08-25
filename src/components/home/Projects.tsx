@@ -29,7 +29,7 @@ export default function Projects() {
         force3D: true,
         scrollTrigger: {
           trigger: rootRef.current,
-          start: 'top -40%',
+          start: 'top -44%',
           end: SCROLL_DISTANCE(projects.length),
           scrub: 1.2,
           pin: true,

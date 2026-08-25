@@ -24,7 +24,7 @@ export function ProjectCard({
     <Card
       className={`flex w-full flex-col overflow-hidden border-3 border-black bg-card md:h-full md:flex-row ${className ?? ''}`.trim()}
     >
-      <div className="bg-muted relative ms-6 me-6 mt-6 aspect-square w-[calc(100%-3rem)] shrink-0 overflow-hidden rounded-2xl md:me-0 md:mt-4 md:ms-4 md:mb-4 md:w-[calc(50%-2rem)]">
+      <div className="bg-muted relative ms-6 me-6 mt-6 aspect-square w-[calc(100%-3rem)] shrink-0 overflow-hidden rounded-2xl md:me-0 md:mt-2 md:ms-8 md:mb-4 md:w-[calc(50%-2rem)]">
         {image ? (
           <img
             src={image}
