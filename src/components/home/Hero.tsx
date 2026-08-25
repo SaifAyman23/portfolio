@@ -268,7 +268,7 @@ function Hero() {
               ref={headingRef}
               text="Saif Eldin"
               images={heroImages}
-              className="font-heavitas flex max-w-full flex-wrap items-end justify-center leading-none text-white [font-size:clamp(3.2rem,11vw,170px)]"
+              className="font-heavitas flex max-w-full flex-nowrap items-end justify-center whitespace-nowrap leading-none text-white [font-size:min(10.4vw,170px)]"
             />
             <p
               ref={subRef}

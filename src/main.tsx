@@ -8,6 +8,9 @@ import App from './App.tsx'
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { APP_NAME } from '@/lib/constants'
 import { queryClient } from '@/lib/queryClient'
+import { initSmoothScroll } from '@/lib/smoothScroll'
+
+initSmoothScroll()
 
 const skeleton = document.getElementById('loading-skeleton')
 if (skeleton) {
