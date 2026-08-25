@@ -156,9 +156,9 @@ function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 overflow-hidden"
           >
-            <img src={fungi11} alt="" className="absolute end-[45%] bottom-0 w-150" />
-            <img src={fungi2} alt="" className="absolute end-[25%] bottom-10 w-150" />
-            <img src={fungi5} alt="" className="absolute start-[10%] bottom-20 w-150" />
+            <img src={fungi11} alt="" className="absolute end-[45%] bottom-0 w-60 sm:w-150" />
+            <img src={fungi2} alt="" className="absolute end-[25%] bottom-10 w-64 sm:w-150" />
+            <img src={fungi5} alt="" className="absolute start-[10%] bottom-20 w-52 sm:w-150" />
           </div>
 
           <div
@@ -166,9 +166,9 @@ function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 overflow-hidden"
           >
-            <img src={plant3} alt="" className="absolute end-[0%] -bottom-40 w-150 rotate-30" />
-            <img src={plants2} alt="" className="absolute end-[40%] bottom-10 w-100" />
-            <img src={plants4} alt="" className="absolute -start-[35%] -bottom-[45%] w-400" />
+            <img src={plant3} alt="" className="absolute end-[0%] -bottom-16 w-60 rotate-30 sm:-bottom-40 sm:w-150" />
+            <img src={plants2} alt="" className="absolute end-[40%] bottom-10 w-32 sm:w-100" />
+            <img src={plants4} alt="" className="absolute -start-[35%] -bottom-[45%] w-250 sm:w-400" />
           </div>
 
           <div
@@ -176,9 +176,9 @@ function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
           >
-            <img src={cloud10} alt="" className="absolute -start-40 top-130 w-300" />
-            <img src={cloud11} alt="" className="absolute start-60 top-130 w-300" />
-            <img src={cloud9} alt="" className="absolute -end-50 top-130 w-300" />
+            <img src={cloud10} alt="" className="absolute -start-20 top-[42%] w-72 sm:-start-40 sm:top-130 sm:w-300" />
+            <img src={cloud11} alt="" className="absolute start-6 top-[46%] w-80 sm:start-60 sm:top-130 sm:w-300" />
+            <img src={cloud9} alt="" className="absolute -end-14 top-[44%] w-72 sm:-end-50 sm:top-130 sm:w-300" />
           </div>
 
           <div

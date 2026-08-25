@@ -48,7 +48,7 @@ export default function Footer() {
             )}
           </div>
 
-          <p className="font-body mx-auto mt-15 max-w-4xl text-center text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          <p className="font-body mx-auto mt-15 max-w-4xl text-center text-md max-sm:mx-5 leading-relaxed text-muted-foreground sm:text-xl">
             Full-stack engineer from Alexandria with two years of shipping real products. ERPs,
             delivery platforms, AI tools, live streams. I care about the details users never notice
             and the performance they always feel.
@@ -60,7 +60,7 @@ export default function Footer() {
           >
             Saif Eldin Ayman
           </h2> */}
-          <img src={name} alt="Saif Eldin Ayman" className="mx-auto mt-16 select-none w-2/3" />
+          <img src={name} alt="Saif Eldin Ayman" className="mx-auto mt-16 select-none w-5/6 sm:w-2/3" />
 
           <p className="mt-15 text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
             &copy; {year} Saif Eldin Ayman &middot; Ship it &amp; forget it &reg; &middot; All

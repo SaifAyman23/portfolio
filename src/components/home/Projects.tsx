@@ -29,7 +29,7 @@ export default function Projects() {
         force3D: true,
         scrollTrigger: {
           trigger: rootRef.current,
-          start: 'top -30%',
+          start: 'top -40%',
           end: SCROLL_DISTANCE(projects.length),
           scrub: 1.2,
           pin: true,
@@ -56,11 +56,10 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="mt-20 overflow-x-auto md:overflow-x-visible md:px-[max(1.5rem,calc((100vw-1280px)/2))] pe-120">
+      <div className="mt-20 overflow-x-auto md:overflow-x-visible md:px-[max(1.5rem,calc((100vw-1280px)/2))] pe-120 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
         <div
           ref={trackRef}
-          className="flex w-max items-stretch gap-14 px-10 pb-6 will-change-transform max-md:snap-x max-md:snap-mandatory"
-          style={{ paddingRight: '50vw' }}
+          className="flex w-max items-stretch gap-6 px-5 pb-6 will-change-transform sm:gap-14 sm:px-10 max-md:snap-x max-md:snap-mandatory md:pe-[50vw]"
         >
           {projects.map((project) => (
             <ProjectCard
