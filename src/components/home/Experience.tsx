@@ -1,5 +1,8 @@
 import { lazy, Suspense, useLayoutEffect, useRef } from 'react'
 
+import { gsap } from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+
 import ScrollReveal from '@/components/bits/ScrollReveal'
 
 const Beams = lazy(() => import('@/components/bits/Beams'))
@@ -135,3 +138,4 @@ export default function Experience() {
     </section>
   )
 }
+

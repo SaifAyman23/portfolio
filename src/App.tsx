@@ -21,7 +21,7 @@ const ResetPassword = lazy(() =>
 
 function App() {
   return (
-    <Router>
+    <Router basename="/portfolio">
       <SeoUpdater />
       <Suspense fallback={null}>
         <Routes>
