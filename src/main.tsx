@@ -23,7 +23,7 @@ if (document.readyState === 'complete') {
   hideSkeleton()
 } else {
   window.addEventListener('load', hideSkeleton, { once: true })
-  setTimeout(hideSkeleton, 8000)
+  setTimeout(hideSkeleton, 20000)
 }
 
 const rootElement = document.getElementById('root')

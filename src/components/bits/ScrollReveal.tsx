@@ -56,44 +56,62 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     const scroller =
       scrollContainerRef && scrollContainerRef.current ? scrollContainerRef.current : window
 
-    const ctx = gsap.context(() => {
-      const wordElements = el.querySelectorAll<HTMLElement>('.word')
+    let ctx: gsap.Context | undefined
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: el,
-          scroller,
-          start: 'top 80%',
-          end: 'top 25%',
-          scrub: 1.2,
-        },
+    const setup = () => {
+      ctx = gsap.context(() => {
+        const wordElements = el.querySelectorAll<HTMLElement>('.word')
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            scroller,
+            start: 'top 80%',
+            end: 'top 25%',
+            scrub: 1.2,
+          },
+        })
+
+        tl.fromTo(
+          wordElements,
+          {
+            opacity: baseOpacity,
+            filter: enableBlur ? `blur(${blurStrength}px)` : 'blur(0px)',
+            rotateX: baseRotation * 4,
+            yPercent: 14,
+            willChange: 'transform, opacity, filter',
+          },
+          {
+            opacity: 1,
+            filter: enableBlur ? 'blur(0px)' : 'blur(0px)',
+            rotateX: 0,
+            yPercent: 0,
+            ease: 'sine.out',
+            force3D: true,
+            stagger: { each: 0.18, from: 'start' },
+          }
+        )
+
+        tl.to({}, { duration: 0.8 })
       })
+    }
 
-      tl.fromTo(
-        wordElements,
-        {
-          opacity: baseOpacity,
-          filter: enableBlur ? `blur(${blurStrength}px)` : 'blur(0px)',
-          rotateX: baseRotation * 4,
-          yPercent: 14,
-          willChange: 'transform, opacity, filter',
-        },
-        {
-          opacity: 1,
-          filter: enableBlur ? 'blur(0px)' : 'blur(0px)',
-          rotateX: 0,
-          yPercent: 0,
-          ease: 'sine.out',
-          force3D: true,
-          stagger: { each: 0.18, from: 'start' },
-        }
-      )
-
-      tl.to({}, { duration: 0.8 })
-    })
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setup()
+            io.disconnect()
+          }
+        })
+      },
+      { rootMargin: '200px 0px' }
+    )
+    io.observe(el)
 
     return () => {
-      ctx.revert()
+      io.disconnect()
+      ctx?.revert()
     }
   }, [scrollContainerRef, enableBlur, baseRotation, baseOpacity, blurStrength])
 

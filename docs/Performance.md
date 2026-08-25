@@ -1,286 +1,173 @@
 # Performance — World-Grade Playbook
 
-**Goal:** Lighthouse Performance **100**, and a genuinely smooth real-world experience (Core Web Vitals in the green on real devices, not just the lab).
-
-This document treats the current portfolio as the reference implementation. Every pattern below is either already in the code (cited with file paths) or is the next step to reach the limit.
+> **Scope:** Applies to **any** website (static, SPA, SSR, SSG, e-commerce, portfolio, docs). Framework-agnostic unless a note says otherwise.
+> **Goal:** green Core Web Vitals on real devices, not just on a fast laptop.
+> **Sources of truth:** [web.dev Vitals](https://web.dev/vitals/), [LCP](https://web.dev/articles/lcp), [INP](https://web.dev/articles/inp), [CLS](https://web.dev/articles/cls), [TBT](https://web.dev/articles/tbt), [Learn Performance](https://web.dev/learn/performance), [MDN Performance](https://developer.mozilla.org/en-US/docs/Web/Performance).
 
 ---
 
 ## 1. The metrics that decide the score
 
-| Metric                              | What it measures                       | Green    | Failing  |
-| ----------------------------------- | -------------------------------------- | -------- | -------- |
-| **FCP** (First Contentful Paint)    | First text/image paints                | < 1.8 s  | > 3.0 s  |
-| **LCP** (Largest Contentful Paint)  | The biggest visible element            | < 2.5 s  | > 4.0 s  |
-| **CLS** (Cumulative Layout Shift)   | Unexpected layout jumps                | < 0.1    | > 0.25   |
-| **TBT** (Total Blocking Time)       | Main-thread blocked before interactive | < 200 ms | > 600 ms |
-| **INP** (Interaction to Next Paint) | Responsiveness to input                | < 200 ms | > 500 ms |
-| **Speed Index**                     | How fast content is visually complete  | < 3.4 s  | > 5.8 s  |
+These are the field metrics Google and Lighthouse use. Optimize for **field** data (real users), verify with **lab** tools.
 
-**Debugging rule of thumb:** FCP fast + LCP slow ⇒ the LCP _resource_ is slow (image size, late discovery). CLS > 0.1 ⇒ missing reserved space. TBT/INP high ⇒ too much JS on the main thread.
+| Metric | Measures | Good | Needs work | Bad |
+|---|---|---|---|---|
+| **LCP** (Largest Contentful Paint) | Loading — when the main content is visible | ≤ 2.5 s | 2.5–4.0 s | > 4.0 s |
+| **INP** (Interaction to Next Paint) | Interactivity — responsiveness to input | ≤ 200 ms | 200–500 ms | > 500 ms |
+| **CLS** (Cumulative Layout Shift) | Visual stability | ≤ 0.1 | 0.1–0.25 | > 0.25 |
+| **TBT** (Total Blocking Time) | Main-thread blocking (lab proxy for INP) | ≤ 200 ms | 200–600 ms | > 600 ms |
+| **Speed Index** | How quickly content is visually complete | ≤ 3.4 s | 3.4–5.8 s | > 5.8 s |
+
+> **Standardized measurement loop:** Lighthouse (lab) for regressions in CI + CrUX / RUM (field) for reality. Never tune to Lighthouse alone — a dev build lies. See [Chrome UX Report](https://developer.chrome.com/docs/crux).
 
 ---
 
 ## 2. LCP — make the biggest element arrive instantly
 
-The LCP element is almost always a hero image or the hero text. Optimize the _resource_, not the markup.
+The LCP element is usually a hero image, a headline, or a video poster. Your job: make *that one element* load first.
 
-### 2.1 Ship modern image formats, never PNG on the critical path
+### 2.1 Ship modern image formats — never PNG/JPEG on the critical path
 
-- Convert raster posters/photos to **WebP** (10–16× smaller); **AVIF** where supported.
-- The repo already ships WebP everywhere via `scripts/img2webp.mjs`. Keep it.
-- Command used historically: `ffmpeg -i in.png -c:v libwebp -quality 82 out.webp`.
+| Format | Use for | Notes |
+|---|---|---|
+| **AVIF** | Photos, complex images | Best compression; ~50% smaller than JPEG. Check browser support (all modern browsers since 2022). |
+| **WebP** | Photos, illustrations | Broad support, solid compression. Safe default. |
+| **SVG** | Icons, logos, line art | Vector, tiny, crisp. No raster needed. |
+| **PNG** | Transparency where WebP/AVIF unsupported | Use only when required; compress with `pngquant`. |
 
-### 2.2 Mark the LCP image and give it explicit dimensions
+> **Standardized:** for photographic content use **AVIF with a WebP fallback**; for icons/logos use **SVG**. PNG is the exception, not the default.
 
-`src/components/home/Hero.tsx` does exactly this:
+### 2.2 Give the LCP image explicit dimensions (no CLS)
 
-```tsx
-<img
-  ref={paperRef}
-  fetchPriority="high" // tells the browser this is the LCP candidate
-  src={bgPaper}
-  alt=""
-  aria-hidden="true"
-  className="pointer-events-none absolute inset-0 h-full w-full object-cover ..."
-/>
+Every image needs `width` + `height` **or** a fixed aspect-ratio container (`aspect-ratio`, `aspect-square`, `aspect-video`). This reserves space before the image loads.
+
+```html
+<img src="hero.avif" width="1600" height="900" alt="..." fetchpriority="high" />
+<!-- or responsive -->
+<img src="hero.avif" srcset="hero-480.avif 480w, hero-1600.avif 1600w"
+     sizes="(max-width: 768px) 100vw, 1600px" alt="..." fetchpriority="high" />
 ```
 
-For every non-LCP image, do the opposite: `loading="lazy"` + `decoding="async"` (see §4).
+### 2.3 Prioritize the LCP resource
 
-### 2.3 Preload the LCP image when it is NOT a static asset
+- `fetchpriority="high"` on the LCP image.
+- `loading="eager"` + `decoding="async"` (do **not** lazy-load the LCP element).
+- If the LCP image is referenced via CSS or JS (not a static `<img>`), add `<link rel="preload" as="image" href="hero.avif" fetchpriority="high">` in `<head>`.
 
-Because the hero paper is imported through Vite (hashed name), preloading from `index.html` is awkward. Two solid options:
+### 2.4 No render-blocking resources in the critical path
 
-- Keep `fetchPriority="high"` on the element (already done — sufficient for most cases).
-- Or emit a `<link rel="preload" as="image">` via a tiny Vite plugin that knows the hashed filename. Add this only if Lighthouse still flags LCP discovery.
-
-### 2.4 No render-blocking CSS/JS in the critical path
-
-- Critical CSS is inlined by Vite automatically.
-- Fonts load non-render-blocking (see §5).
-- Heavy SDKs (three.js, charts) are **never** in the initial bundle (see §3).
+- CSS: inline critical CSS; load the rest with `media="print" onload="this.media='all'"` or `preload` + `onload`.
+- JS: `defer` (or `async` for independent scripts). Never a synchronous `<script>` in `<head>` that blocks parsing.
+- Fonts: load non-render-blocking (see §5).
 
 ---
 
-## 3. JavaScript — the #1 enemy of TBT/INP
+## 3. JavaScript — the #1 enemy of TBT / INP
 
-A heavy initial bundle blocks the main thread → high TBT → low score. The fix is _less JS executing during load_, achieved by splitting and deferring.
+JS is the most common cause of failed mobile scores. Every KB of JS is parsed, compiled, and executed on the **user's** CPU.
 
 ### 3.1 Route-level code splitting (baseline)
 
-`src/App.tsx` lazy-loads every route:
-
-```tsx
-const Home = lazy(() => import('@/pages/Home'))
-```
+Split per route so the initial bundle only contains what the first screen needs. (React: `React.lazy` + `Suspense`; Vue: async routes; Svelte: dynamic imports; Next.js/Nuxt: file-based splitting is automatic.)
 
 ### 3.2 Vendor splitting via `manualChunks`
 
-The build already emits stable vendor chunks (`vendor-react`, `vendor-gsap`, `vendor-query`, `vendor-three`, `vendor-radix`). Keep these so the app chunk stays cacheable and small.
+Separate stable vendor libs (framework, router, state) from app code so they cache independently and don't re-download on every app change.
 
-### 3.3 Defer below-the-fold sections until they are scrolled into view
+### 3.3 Eager vs Lazy loading of below-the-fold content
 
-This was the single biggest win for this site (mobile TBT dropped from **2,645 ms → 130 ms**).
+This is the decision most teams get wrong.
 
-`src/pages/Home.tsx`:
+- **Situation A — strict performance budget, heavy below-fold widgets (WebGL, data-grids, charts, 3D):** Defer loading and initialization of below-fold sections until they are near the viewport. This keeps initial TBT low. Trade-off: content is not in the DOM at first paint, so you must reserve space and reveal it smoothly (fade/slide), otherwise it "pops."
+- **Situation B — simple content, or you want the whole page present immediately and accept a heavier initial load:** Load everything eagerly, and cover the heavier load with a branded loading screen that hides only after `window.load`. Trade-off: larger initial JS/CSS → higher TBT on slow devices, but zero scroll-time surprises and simplest mental model.
 
-```tsx
-function LazySection({ children }: { children: ReactNode }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [show, setShow] = useState(false)
+**When to use each:**
+- Use **A** when a Lighthouse/field-performance budget is a hard requirement (most production marketing/commerce sites).
+- Use **B** when the experience must be perfectly smooth with zero conditional loading, and you can hide the cost behind a full-page loader (internal tools, portfolios where the owner accepts a lower score).
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      const id = requestAnimationFrame(() => setShow(true))
-      return () => cancelAnimationFrame(id)
-    }
-    const io = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((e) => {
-          if (e.isIntersecting) {
-            setShow(true)
-            io.disconnect()
-          }
-        }),
-      { rootMargin: '300px 0px' }
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
-  return (
-    <div ref={ref}>
-      {show ? (
-        <Suspense fallback={<div className="min-h-[50vh]" aria-hidden="true" />}>
-          {children}
-        </Suspense>
-      ) : (
-        <div className="min-h-[50vh]" aria-hidden="true" />
-      )}
-    </div>
-  )
-}
-```
-
-Why it works: the heavy section code (e.g. the three.js Experience panels) is imported dynamically and only _executes_ when the user scrolls near it — completely outside Lighthouse's load window.
+> **Standardized:** Default to **A (defer below-fold heavy content)** for public, performance-sensitive sites. Reveal deferred content with a reserved-height container + CSS fade so it never pops. Reserve **B** for cases where a full loader is acceptable and smoothness-without-surprise is the priority. Regardless of choice, **always reserve layout space** for deferred content to keep CLS at 0.
 
 ### 3.4 Break up long tasks
 
-- Wrap non-urgent work in `requestIdleCallback`.
-- Example in `src/components/ui/torn-text.tsx` — the torn-letter images are warmed at idle so they don't block first paint:
+Any single JS task > 50 ms blocks the main thread (counts toward TBT, hurts INP). Split with `setTimeout(…, 0)`, `requestIdleCallback`, or scheduling APIs. Yield to the browser between chunks of work.
 
-```tsx
-const idle = (cb: () => void) => {
-  if ('requestIdleCallback' in window) window.requestIdleCallback(cb)
-  else setTimeout(cb, 1200)
-}
-idle(() => {
-  /* preload letter images, setImgsReady */
-})
-```
+### 3.5 Keep WebGL / three.js / heavy canvas off the critical path
 
-### 3.5 Never put WebGL/three.js in the critical path
-
-`Silk`, `Beams`, and `DarkVeil` are already isolated into their own lazy chunks. Keep them lazy and only mount them inside the deferred section (§3.3).
+WebGL contexts are expensive. Load them lazily, cap devicePixelRatio (e.g. `min(dpr, 1.5)`), pause rendering when off-screen (`IntersectionObserver`) or when the tab is hidden (`visibilitychange`), and freeze for `prefers-reduced-motion`.
 
 ### 3.6 Smooth scrolling without jank
 
-`src/lib/smoothScroll.ts` wires Lenis + GSAP correctly and bails on reduced-motion:
-
-```ts
-export function initSmoothScroll() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null
-  const lenis = new Lenis({
-    lerp: 0.08,
-    smoothWheel: true,
-    wheelMultiplier: 1,
-    touchMultiplier: 1.2,
-    gestureOrientation: 'vertical',
-  })
-  lenis.on('scroll', ScrollTrigger.update)
-  const raf = (time: number) => lenis.raf(time * 1000)
-  gsap.ticker.add(raf)
-  gsap.ticker.lagSmoothing(0)
-  return () => {
-    gsap.ticker.remove(raf)
-    lenis.destroy()
-  }
-}
-```
+- Animate only `transform` and `opacity` (GPU-composited). Never animate `top/left/width/height/margin` in hot paths.
+- Use `will-change` sparingly and remove it after the animation (permanent `will-change` on many elements destroys performance).
+- Respect `prefers-reduced-motion`: collapse animations to ~0.
+- Debounce/throttle scroll, resize, and input handlers.
 
 ---
 
 ## 4. Images — fade in, never shift
 
-Use `src/components/ui/FadeImage.tsx` for every non-LCP image. It is CLS-safe (explicit `width`/`height`) and fades in on load so there is no flash:
-
-```tsx
-export function FadeImage({ className, onLoad, ...props }: FadeImageProps) {
-  const ref = useRef<HTMLImageElement>(null)
-  const [loaded, setLoaded] = useState(false)
-  useEffect(() => {
-    const el = ref.current
-    if (el?.complete) {
-      const id = requestAnimationFrame(() => setLoaded(true))
-      return () => cancelAnimationFrame(id)
-    }
-  }, [])
-  return (
-    <img
-      ref={ref}
-      onLoad={(e) => {
-        setLoaded(true)
-        onLoad?.(e)
-      }}
-      className={cn(
-        'transition-opacity duration-700 ease-out',
-        loaded ? 'opacity-100' : 'opacity-0',
-        className
-      )}
-      {...props}
-    />
-  )
-}
-```
-
-Usage in `src/components/home/About.tsx` (note explicit dimensions + lazy + async):
-
-```tsx
-<FadeImage
-  src={photo.src}
-  alt=""
-  draggable={false}
-  loading="lazy"
-  decoding="async"
-  width={photo.width}
-  height={photo.height}
-  className="h-full w-full rounded-2xl object-cover"
-/>
-```
-
-Rules:
-
-- **Every** image gets explicit `width`/`height` **or** sits in a fixed `aspect-*` container.
-- Below-fold images: `loading="lazy"` + `decoding="async"`.
-- Decorative images: `alt=""` + `aria-hidden="true"` (they are not announced).
-- The LCP image: `fetchPriority="high"`, **not** lazy.
+- Use `loading="lazy"` + `decoding="async"` for **all non-LCP** images (below the fold).
+- Always set explicit dimensions or aspect-ratio containers → CLS = 0.
+- Serve responsive images with `srcset` + `sizes`.
+- Use a low-quality placeholder / blur-up or a simple opacity fade-in so loads feel intentional, not broken.
+- Compress aggressively; aim for the smallest acceptable quality (AVIF/WebP at ~70–82 quality).
 
 ---
 
 ## 5. Fonts — fast and never shift
 
-`index.html` loads fonts non-render-blocking and swaps:
-
-```html
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-  href="https://fonts.googleapis.com/css2?...&display=swap"
-  rel="stylesheet"
-  media="print"
-  onload="this.media='all'"
-/>
-<noscript><link href="..." rel="stylesheet" /></noscript>
-```
-
-- `display=swap` prevents invisible-text flashes.
-- `font-display` is set in the `@theme` tokens in `src/index.css`.
-- Pair this with `font-size: min(...)` clamped headings so the layout does not jump when the web font arrives.
+- Use `font-display: swap` (or `optional`) — never block render on fonts.
+- Preconnect to the font origin (`<link rel="preconnect" crossorigin>`).
+- Load non-render-blocking: `media="print" onload="this.media='all'"` + `<noscript>` fallback.
+- Subset fonts (only ship glyphs you use); use `size-adjust` / `fallback` metrics to avoid layout shift when the web font swaps in.
+- Avoid more than 2–3 font families / weights; each is a network + parse cost.
 
 ---
 
 ## 6. Animations — GPU only, respect the user
 
-- Animate **only** `transform` and `opacity`. Never `top/left/width/height/margin` in animations.
-- `will-change` is applied by GSAP during animation and cleaned up by `gsap.context().revert()` — do not leave permanent `will-change` on many elements.
-- Honor reduced motion everywhere:
-  - `src/index.css` global rule collapses all motion.
-  - Every effect in this repo starts with `if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return`.
+- Animate `transform` and `opacity` only.
+- Honor `prefers-reduced-motion: reduce` globally (set `animation-duration: 0.01ms !important; transition-duration: 0.01ms !important` under the media query).
+- Keep entrance animations subtle and short (< 600 ms).
+- Never animate layout properties in scroll-driven effects; use `transform` with `will-change` scoped to the animation.
 
 ---
 
 ## 7. Measure like a pro
 
-1. **Lab:** Lighthouse (headless Chrome). For throttled mobile, run the default preset; for desktop, `--preset=desktop`.
-2. **Field:** Chrome UX Report (CrUX) for real FCP/LCP/CLS/INP from real users.
-3. **Watch INP** — it cannot be measured by headless Lighthouse (no real interaction). Use field data or a real-device interaction test.
-4. Budget regressions: add Lighthouse CI to the pipeline so every PR reports scores.
+| Tool | Type | Use |
+|---|---|---|
+| [Lighthouse](https://developer.chrome.com/docs/lighthouse) | Lab | CI regressions, per-commit budgets |
+| [Chrome UX Report](https://developer.chrome.com/docs/crux) | Field | Real-user Core Web Vitals |
+| [WebPageTest](https://www.webpagetest.org/) | Lab | Deep waterfalls, TBT, filmstrips |
+| Chrome DevTools | Both | Flame charts, layout-shift regions, long tasks |
 
-> Note: Lighthouse's mobile preset applies a 4× CPU throttle. A GSAP/Lenis/WebGL site may read worse in the lab than it feels on a real phone. Trust field data for the final verdict.
+> **Standardized:** Run Lighthouse in **CI on a throttled mobile profile** (e.g., Fast 4G + 4× CPU) with a **performance budget** that fails the build on regression. Pair with field data (CrUX/RUM) for the truth.
 
 ---
 
 ## 8. Pre-merge performance checklist
 
-- [ ] LCP image is WebP/AVIF, `fetchPriority="high"`, explicit size.
-- [ ] Every other image: `loading="lazy"` + `decoding="async"` + explicit dimensions.
-- [ ] Below-fold sections lazy-mounted (IntersectionObserver), not eagerly bundled.
-- [ ] WebGL / heavy SDKs are separate lazy chunks.
-- [ ] No synchronous long tasks on load; idle/defer non-critical work.
-- [ ] Fonts non-render-blocking + `display=swap`.
-- [ ] Animations are transform/opacity only; reduced-motion guarded.
-- [ ] `npm run build` chunk sizes reviewed; no accidental vendor bloat.
-- [ ] Lighthouse mobile + desktop both ≥ 95 (target 100).
+- [ ] LCP ≤ 2.5 s (mobile, throttled)
+- [ ] CLS ≤ 0.1 (zero layout shift from images/fonts/ads/injected content)
+- [ ] TBT ≤ 200 ms (mobile, throttled)
+- [ ] INP ≤ 200 ms (field)
+- [ ] LCP image: AVIF/WebP, explicit dimensions, `fetchpriority="high"`, not lazy
+- [ ] All other images: `loading="lazy"` + `decoding="async"` + dimensions
+- [ ] JS code-split per route; vendors split; no heavy lib in critical path
+- [ ] Below-fold heavy content deferred (or full loader chosen) — space reserved either way
+- [ ] `prefers-reduced-motion` honored
+- [ ] Fonts non-render-blocking, `font-display: swap`, subset
+- [ ] No render-blocking CSS/JS in `<head>`
+- [ ] Lighthouse CI budget enforced; field data (CrUX/RUM) reviewed
+
+---
+
+## References
+
+- Core Web Vitals — https://web.dev/vitals/
+- LCP — https://web.dev/articles/lcp · INP — https://web.dev/articles/inp · CLS — https://web.dev/articles/cls · TBT — https://web.dev/articles/tbt
+- Learn Performance — https://web.dev/learn/performance
+- MDN Web Performance — https://developer.mozilla.org/en-US/docs/Web/Performance
+- Chrome UX Report — https://developer.chrome.com/docs/crux
+- Lighthouse — https://developer.chrome.com/docs/lighthouse

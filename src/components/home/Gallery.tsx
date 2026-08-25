@@ -7,7 +7,6 @@ import g2 from '@/assets/img/gallery/2.webp'
 import g3 from '@/assets/img/gallery/3.webp'
 import g4 from '@/assets/img/gallery/4.webp'
 import g5 from '@/assets/img/gallery/5.webp'
-import { useRevealReady } from '@/hooks/useRevealReady'
 import { cn } from '@/lib/utils'
 
 interface GalleryProps {
@@ -38,23 +37,19 @@ function useIsMobile() {
 
 export default function Gallery({ className }: GalleryProps) {
   const isMobile = useIsMobile()
-  const [sectionRef, ready] = useRevealReady<HTMLElement>()
 
   return (
-    <section
-      ref={sectionRef}
-      className={cn('relative overflow-hidden bg-background px-6 pb-36', className)}
-    >
+    <section className={cn('relative overflow-hidden bg-background px-6 pb-36', className)}>
       <div className="mx-auto max-w-7xl">
         <p className="eyebrow text-center">Gallery</p>
         <h2 className="font-libertine my-8 mb-16 text-center text-[clamp(3rem,8vw,7.5rem)] italic leading-[1.05] tracking-tight text-foreground">
           Through my lens
         </h2>
 
-        {ready ? (
+        <div className="animate-fade-in h-[420px] w-full md:h-[460px]">
           <AccordionGallery
             items={items}
-            enabled={ready}
+            enabled
             defaultIndex={2}
             expandRatio={0.52}
             trigger={isMobile ? 'click' : 'hover'}
@@ -73,9 +68,7 @@ export default function Gallery({ className }: GalleryProps) {
             radius={16}
             orientation={isMobile ? 'vertical' : 'horizontal'}
           />
-        ) : (
-          <div className="h-[420px] w-full" aria-hidden="true" />
-        )}
+        </div>
       </div>
     </section>
   )

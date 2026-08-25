@@ -3,7 +3,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useLayoutEffect, useRef } from 'react'
 
 import { ProjectCard } from '@/components/projects'
-import { useRevealReady } from '@/hooks/useRevealReady'
 import { projects } from '@/lib/projects'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -11,12 +10,11 @@ gsap.registerPlugin(ScrollTrigger)
 const SCROLL_DISTANCE = (count: number) => `+=${(count - 1) * 110}%`
 
 export default function Projects() {
-  const [rootRef, ready] = useRevealReady<HTMLDivElement>()
+  const rootRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
-    if (!ready) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
@@ -42,7 +40,7 @@ export default function Projects() {
     }, rootRef)
 
     return () => ctx.revert()
-  }, [ready, rootRef])
+  }, [rootRef])
 
   return (
     <section
@@ -88,24 +86,21 @@ export default function Projects() {
             max-md:snap-mandatory
           "
         >
-          {ready ? (
-            projects.map((project) => (
-              <ProjectCard
-                key={project.title}
-                {...project}
-                className="
-                    w-[calc(100vw-2.5rem)]
-                    max-w-[680px]
-                    shrink-0
-                    max-md:snap-center
-                    sm:w-[min(88vw,680px)]
-                    md:w-[min(78vw,680px)]
-                  "
-              />
-            ))
-          ) : (
-            <div className="h-[460px] w-full" aria-hidden="true" />
-          )}
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              {...project}
+              className="
+                  w-[calc(100vw-2.5rem)]
+                  max-w-[680px]
+                  shrink-0
+                  max-md:snap-center
+                  sm:w-[min(88vw,680px)]
+                  md:w-[min(78vw,680px)]
+                  animate-fade-in
+                "
+            />
+          ))}
         </div>
       </div>
     </section>

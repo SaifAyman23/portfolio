@@ -1,22 +1,19 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { lazy, Suspense, useLayoutEffect } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 
 import beamsImg from '@/assets/img/experience/beams.webp'
 import silkImg from '@/assets/img/experience/silk.webp'
+import DarkVeil from '@/components/bits/DarkVeil'
 import ScrollReveal from '@/components/bits/ScrollReveal'
-import { useRevealReady } from '@/hooks/useRevealReady'
-
-const DarkVeil = lazy(() => import('@/components/bits/DarkVeil'))
 
 gsap.registerPlugin(ScrollTrigger)
 
 export default function Experience() {
-  const [sectionRef, ready] = useRevealReady<HTMLElement>()
+  const sectionRef = useRef<HTMLElement>(null)
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
-    if (!ready) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
@@ -42,7 +39,7 @@ export default function Experience() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [ready, sectionRef])
+  }, [sectionRef])
 
   return (
     <section
@@ -115,21 +112,19 @@ export default function Experience() {
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-4">
           <div data-from="center" className="reveal-panel col-span-full will-change-transform">
-            <div className="relative w-full overflow-hidden rounded-2xl bg-background h-60 md:h-[16rem]">
+            <div className="relative w-full overflow-hidden rounded-2xl bg-background h-64 md:h-[16rem]">
               <div className="absolute inset-0 bg-black">
-                {ready && (
-                  <Suspense fallback={null}>
-                    <DarkVeil
-                      hueShift={0}
-                      noiseIntensity={0}
-                      scanlineIntensity={0}
-                      speed={2.5}
-                      scanlineFrequency={6}
-                      warpAmount={0.7}
-                      resolutionScale={1.2}
-                    />
-                  </Suspense>
-                )}
+                <div className="animate-fade-in h-full w-full">
+                  <DarkVeil
+                    hueShift={0}
+                    noiseIntensity={0}
+                    scanlineIntensity={0}
+                    speed={2.5}
+                    scanlineFrequency={6}
+                    warpAmount={0.7}
+                    resolutionScale={2}
+                  />
+                </div>
               </div>
             </div>
           </div>

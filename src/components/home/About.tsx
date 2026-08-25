@@ -6,7 +6,6 @@ import photoLeft from '@/assets/img/about/left.webp'
 import photoMiddle from '@/assets/img/about/middle.webp'
 import photoRight from '@/assets/img/about/right.webp'
 import { FadeImage } from '@/components/ui/FadeImage'
-import { useRevealReady } from '@/hooks/useRevealReady'
 import { cn } from '@/lib/utils'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -54,13 +53,12 @@ const STACKED = [
 ]
 
 export default function About() {
-  const [sectionRef, ready] = useRevealReady<HTMLElement>()
+  const sectionRef = useRef<HTMLElement>(null)
   const deckRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
-    if (!ready) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
@@ -146,7 +144,7 @@ export default function About() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [ready, sectionRef])
+  }, [sectionRef])
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-background px-6 pb-36 pt-8">
