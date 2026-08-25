@@ -9,6 +9,7 @@ Reference implementation: the current portfolio. File paths are cited throughout
 ## 1. Structural accessibility (must-haves)
 
 ### 1.1 Skip link
+
 The first focusable element on every page: `src/MainLayout.tsx`
 
 ```tsx
@@ -19,10 +20,12 @@ The first focusable element on every page: `src/MainLayout.tsx`
 ```
 
 ### 1.2 Landmarks & semantic HTML
+
 - Use real `<nav>`, `<main>`, `<section>`, `<footer>`, `<article>`, and headings. Never fake a button with `<div onClick>`.
 - `SeoUpdater`/root sets `lang="en"` on `<html>` (and `dir="ltr"`). For RTL locales, flip to `dir="rtl"` and use logical properties (`ms-*` / `me-*`, `start`/`end`).
 
 ### 1.3 Visible focus
+
 `src/index.css` enforces a global focus ring:
 
 ```css
@@ -42,7 +45,9 @@ Every keyboard-focused element shows it. Never remove `outline` without replacin
 
 ```css
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -112,6 +117,7 @@ it('has no serious a11y violations', async () => {
 ```
 
 Rules:
+
 - `IS_REACT_ACT_ENVIRONMENT` is set in `src/test/setup-env.ts` (must stay first in `setupFiles`).
 - `waitFor` must not be nested inside `act()`.
 

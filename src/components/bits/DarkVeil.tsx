@@ -98,9 +98,10 @@ export default function DarkVeil({
   useEffect(() => {
     const canvas = ref.current as HTMLCanvasElement
     const parent = canvas.parentElement as HTMLElement
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
     const renderer = new Renderer({
-      dpr: Math.min(window.devicePixelRatio, 2),
+      dpr: Math.min(window.devicePixelRatio || 1, 1.5),
       canvas,
     })
 
@@ -134,9 +135,7 @@ export default function DarkVeil({
     resize()
 
     const start = performance.now()
-    let frame = 0
-
-    const loop = () => {
+    const renderFrame = () => {
       program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed
       program.uniforms.uHueShift.value = hueShift
       program.uniforms.uNoise.value = noiseIntensity
@@ -144,14 +143,53 @@ export default function DarkVeil({
       program.uniforms.uScanFreq.value = scanlineFrequency
       program.uniforms.uWarp.value = warpAmount
       renderer.render({ scene: mesh })
+    }
+
+    let frame = 0
+    let running = false
+
+    const loop = () => {
+      renderFrame()
       frame = requestAnimationFrame(loop)
     }
 
-    loop()
+    const startLoop = () => {
+      if (running || reduced || document.hidden) return
+      running = true
+      frame = requestAnimationFrame(loop)
+    }
+
+    const stopLoop = () => {
+      running = false
+      cancelAnimationFrame(frame)
+    }
+
+    const onVisibility = () => {
+      if (document.hidden) stopLoop()
+      else if (canvas.getBoundingClientRect().top < window.innerHeight) startLoop()
+    }
+
+    let io: IntersectionObserver | undefined
+    if (reduced) {
+      program.uniforms.uTime.value = 0
+      renderFrame()
+    } else {
+      io = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) startLoop()
+          else stopLoop()
+        },
+        { threshold: 0 }
+      )
+      io.observe(canvas)
+      document.addEventListener('visibilitychange', onVisibility)
+    }
 
     return () => {
-      cancelAnimationFrame(frame)
+      stopLoop()
       window.removeEventListener('resize', resize)
+      io?.disconnect()
+      document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [
     hueShift,

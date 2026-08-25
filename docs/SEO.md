@@ -1,6 +1,6 @@
 # SEO — World-Grade Playbook
 
-**Goal:** Lighthouse SEO **100**, plus real search-engine ranking. SEO 100 in Lighthouse only checks *technical* basics; real ranking also needs content, links, and performance (LCP is a ranking signal — see `Performance.md`).
+**Goal:** Lighthouse SEO **100**, plus real search-engine ranking. SEO 100 in Lighthouse only checks _technical_ basics; real ranking also needs content, links, and performance (LCP is a ranking signal — see `Performance.md`).
 
 This document uses the current portfolio as the reference implementation.
 
@@ -8,15 +8,15 @@ This document uses the current portfolio as the reference implementation.
 
 ## 1. The technical foundation
 
-| Check | Requirement |
-| ----- | ----------- |
-| `robots.txt` | Allows crawling, points to sitemap |
-| `sitemap.xml` | Lists all real routes |
-| `<title>` + `<meta name="description">` | Unique, present on every route |
-| `viewport` | `width=device-width` |
-| `http` → `https` | Served over HTTPS |
-| `canonical` | One canonical URL per route |
-| `hreflang` (if multilingual) | Language alternates |
+| Check                                   | Requirement                        |
+| --------------------------------------- | ---------------------------------- |
+| `robots.txt`                            | Allows crawling, points to sitemap |
+| `sitemap.xml`                           | Lists all real routes              |
+| `<title>` + `<meta name="description">` | Unique, present on every route     |
+| `viewport`                              | `width=device-width`               |
+| `http` → `https`                        | Served over HTTPS                  |
+| `canonical`                             | One canonical URL per route        |
+| `hreflang` (if multilingual)            | Language alternates                |
 
 The repo emits `robots.txt` + `sitemap.xml` on every build via a Vite plugin in `vite.config.ts`:
 
@@ -40,11 +40,13 @@ Google renders client JS, but you must still deliver correct `<title>`/`<meta>` 
 export const SITE_NAME = 'Saif Eldin Ayman'
 export const SITE_URL = import.meta.env.VITE_SITE_URL ?? 'https://example.com'
 export const ROUTE_SEO: Record<string, { title: string; description: string }> = {
-  '/':        { title: '...', description: '...' },
-  '/login':  { title: '...', description: '...' },
+  '/': { title: '...', description: '...' },
+  '/login': { title: '...', description: '...' },
   // every route gets an entry
 }
-export function matchRouteSeo(pathname: string) { /* longest-prefix match */ }
+export function matchRouteSeo(pathname: string) {
+  /* longest-prefix match */
+}
 ```
 
 **`src/components/SeoUpdater.tsx`** — renders `null`, but on every route change upserts `document.title`, the description meta, OG tags, and the canonical link. Wire it **inside the Router, above `<Suspense>`** so it runs for all routes.
@@ -78,17 +80,22 @@ Machines read JSON-LD better than meta. `index.html` includes `Organization` + `
 
 ```html
 <script type="application/ld+json">
-{ "@context": "https://schema.org", "@type": "Person",
-  "name": "Saif Eldin Ayman", "jobTitle": "Full Stack Software Engineer",
-  "url": "https://saifayman23.github.io/portfolio/" }
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Saif Eldin Ayman",
+    "jobTitle": "Full Stack Software Engineer",
+    "url": "https://saifayman23.github.io/portfolio/"
+  }
 </script>
 ```
 
 Extend per page type:
+
 - **Articles / blog** → `Article` + `BreadcrumbList`.
 - **Products / projects** → `CreativeWork` or `Product`.
 - **Local business** → `LocalBusiness` with `geo` + `address`.
-Validate with Google's Rich Results Test.
+  Validate with Google's Rich Results Test.
 
 ---
 

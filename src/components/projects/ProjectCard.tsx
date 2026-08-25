@@ -65,8 +65,8 @@ export function ProjectCard({
           <FadeImage
             src={image}
             alt=""
-            width={1920}
-            height={1858}
+            width={900}
+            height={871}
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
             decoding="async"

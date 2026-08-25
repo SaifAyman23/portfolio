@@ -11,6 +11,7 @@ Reference files: `AGENTS.md`, `src/api/**`, `src/hooks/**`, `src/lib/**`, `src/t
 Lighthouse flags: `console.error` in production, `debugger` statements, deprecated APIs, `document.write`, mixed content, HTTP usage, images without correct aspect ratio, invalid source maps, and unminified/duplicate JS.
 
 Discipline that satisfies it:
+
 - **No `console.log` in ship code.** `warn`/`error` are allowed (used for real failures). Enforced by `no-console` in ESLint.
 - **No secrets in the client.** Env vars are typed in `src/vite-env.d.ts` and read via `import.meta.env.VITE_*`. `.env` is git-ignored; never commit it.
 - **HTTPS everywhere**, including the `canonical`/OG/sitemap URLs and any API base.
@@ -32,6 +33,7 @@ export default function SomePage() {
 ```
 
 Rules:
+
 - Extract any UI that appears twice, or any piece with clear boundaries, into its own file under `components/<domain>/`.
 - Components receive data + callbacks via **props** — never read stores/routers/query hooks directly (keeps them reusable and testable).
 - Each domain folder has a barrel `index.ts`; pages import from the barrel, never the file.
@@ -57,12 +59,12 @@ api/accounts/
 
 State ownership (from `AGENTS.md` §3.7):
 
-| State | Tool | Persisted? |
-| ----- | ---- | ---------- |
-| Auth (user, token) | Zustand | Yes (localStorage) |
-| Server data | React Query | No |
-| UI state (form, modal) | `useState` | No |
-| URL state | React Router | Yes (URL) |
+| State                  | Tool         | Persisted?         |
+| ---------------------- | ------------ | ------------------ |
+| Auth (user, token)     | Zustand      | Yes (localStorage) |
+| Server data            | React Query  | No                 |
+| UI state (form, modal) | `useState`   | No                 |
+| URL state              | React Router | Yes (URL)          |
 
 ---
 

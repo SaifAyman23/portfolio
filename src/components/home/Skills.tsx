@@ -24,6 +24,7 @@ import {
 } from 'react-icons/si'
 
 import FlowingMenu from '@/components/bits/FlowingMenu'
+import { useRevealReady } from '@/hooks/useRevealReady'
 
 const skillCategories = [
   {
@@ -75,8 +76,10 @@ const skillCategories = [
 // const architectureSkills = ['RBAC', 'Real-time Systems', 'WebSockets', 'Performance Optimization', 'System Design', 'Database Design']
 
 export default function Skills() {
+  const [sectionRef, ready] = useRevealReady<HTMLElement>()
+
   return (
-    <section className="relative bg-background px-6 pb-32">
+    <section ref={sectionRef} className="relative bg-background px-6 pb-32">
       <div className="mx-auto max-w-7xl">
         <p className="eyebrow">Skills</p>
         <h2 className="font-heading mt-4 text-[clamp(3rem,9vw,8.5rem)] font-black uppercase leading-[0.9] tracking-tight">
@@ -89,7 +92,7 @@ export default function Skills() {
         </p>
 
         <div className="mt-16 h-[420px] md:h-[520px]">
-          <FlowingMenu items={skillCategories} />
+          {ready ? <FlowingMenu items={skillCategories} /> : null}
         </div>
 
         {/* <p className="mt-8 text-sm leading-relaxed text-muted-foreground">

@@ -12,10 +12,18 @@ import { initSmoothScroll } from '@/lib/smoothScroll'
 
 initSmoothScroll()
 
-const skeleton = document.getElementById('loading-skeleton')
-if (skeleton) {
+function hideSkeleton() {
+  const skeleton = document.getElementById('loading-skeleton')
+  if (!skeleton) return
   skeleton.style.opacity = '0'
   setTimeout(() => skeleton.remove(), 300)
+}
+
+if (document.readyState === 'complete') {
+  hideSkeleton()
+} else {
+  window.addEventListener('load', hideSkeleton, { once: true })
+  setTimeout(hideSkeleton, 8000)
 }
 
 const rootElement = document.getElementById('root')

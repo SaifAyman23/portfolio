@@ -36,6 +36,7 @@ export interface AccordionGalleryProps {
   showLabels?: boolean
   grayscale?: boolean
   className?: string
+  enabled?: boolean
 }
 
 const DEFAULT_ITEMS: AccordionGalleryItem[] = [
@@ -66,6 +67,7 @@ const AccordionGallery = ({
   showLabels = true,
   grayscale = true,
   className = '',
+  enabled = true,
 }: AccordionGalleryProps) => {
   const rootRef = useRef<HTMLDivElement>(null)
   const panelRefs = useRef<(HTMLElement | null)[]>([])
@@ -166,6 +168,7 @@ const AccordionGallery = ({
   useEffect(() => {
     const el = rootRef.current
     if (!el) return
+    if (!enabled) return
 
     const measure = () => {
       const rect = el.getBoundingClientRect()
@@ -181,7 +184,7 @@ const AccordionGallery = ({
     const ro = new ResizeObserver(measure)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [applyLayout, gap, count, expandRatio, vertical])
+  }, [applyLayout, gap, count, expandRatio, vertical, enabled])
 
   useEffect(() => {
     applyLayout(!firstRunRef.current)
@@ -270,7 +273,8 @@ const AccordionGallery = ({
                   src={item.image}
                   alt={item.alt || item.label || ''}
                   draggable={false}
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="low"
                   decoding="async"
                   className="block h-full w-full select-none object-cover [-webkit-user-drag:none]"
                 />

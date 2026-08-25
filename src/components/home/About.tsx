@@ -6,6 +6,7 @@ import photoLeft from '@/assets/img/about/left.webp'
 import photoMiddle from '@/assets/img/about/middle.webp'
 import photoRight from '@/assets/img/about/right.webp'
 import { FadeImage } from '@/components/ui/FadeImage'
+import { useRevealReady } from '@/hooks/useRevealReady'
 import { cn } from '@/lib/utils'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -22,21 +23,21 @@ interface AboutPhoto {
 const photos: AboutPhoto[] = [
   {
     src: photoLeft,
-    width: 3638,
-    height: 3745,
-    className: 'h-[360px] w-[280px] will-change-transform sm:size-170',
+    width: 900,
+    height: 926,
+    className: 'h-[360px] w-[280px] sm:size-170',
   },
   {
     src: photoMiddle,
-    width: 1947,
-    height: 3284,
-    className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[360px]',
+    width: 569,
+    height: 960,
+    className: 'h-[360px] w-[280px] sm:h-[480px] sm:w-[360px]',
   },
   {
     src: photoRight,
-    width: 2679,
-    height: 2796,
-    className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[420px]',
+    width: 900,
+    height: 939,
+    className: 'h-[360px] w-[280px] sm:h-[480px] sm:w-[420px]',
   },
 ]
 
@@ -53,12 +54,13 @@ const STACKED = [
 ]
 
 export default function About() {
-  const sectionRef = useRef<HTMLElement>(null)
+  const [sectionRef, ready] = useRevealReady<HTMLElement>()
   const deckRef = useRef<HTMLDivElement>(null)
   const headingRef = useRef<HTMLHeadingElement>(null)
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
+    if (!ready) return
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
@@ -144,7 +146,7 @@ export default function About() {
     }, sectionRef)
 
     return () => ctx.revert()
-  }, [])
+  }, [ready, sectionRef])
 
   return (
     <section ref={sectionRef} className="relative overflow-hidden bg-background px-6 pb-36 pt-8">
