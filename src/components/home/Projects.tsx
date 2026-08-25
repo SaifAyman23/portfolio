@@ -18,24 +18,28 @@ export default function Projects() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
-      const track = trackRef.current
-      if (!track || window.innerWidth < 768) return
+      const mm = gsap.matchMedia()
 
-      const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 96)
+      mm.add('(min-width: 1024px)', () => {
+        const track = trackRef.current
+        if (!track) return
 
-      gsap.to(track, {
-        x: () => -getDistance(),
-        ease: '1',
-        force3D: true,
-        scrollTrigger: {
-          trigger: rootRef.current,
-          start: 'top -44%',
-          end: SCROLL_DISTANCE(projects.length),
-          scrub: 1.2,
-          pin: true,
-          anticipatePin: 1,
-          invalidateOnRefresh: true,
-        },
+        const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 96)
+
+        gsap.to(track, {
+          x: () => -getDistance(),
+          ease: '1',
+          force3D: true,
+          scrollTrigger: {
+            trigger: rootRef.current,
+            start: 'top -44%',
+            end: SCROLL_DISTANCE(projects.length),
+            scrub: 1.2,
+            pin: true,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+          },
+        })
       })
     }, rootRef)
 
@@ -43,7 +47,7 @@ export default function Projects() {
   }, [])
 
   return (
-    <section ref={rootRef} className="relative overflow-hidden bg-background pt-24 md:pt-32 md:pb-40 pb-16">
+    <section ref={rootRef} className="relative overflow-hidden bg-background pt-24 pb-16 md:pt-32 md:pb-40">
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <p className="eyebrow">Selected Work</p>
         <h2 className="font-heading mt-4 text-[clamp(3rem,9vw,8.5rem)] font-black uppercase leading-[0.9] tracking-tight">
@@ -56,17 +60,10 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="mt-20 overflow-x-auto md:overflow-x-visible md:px-[max(1.5rem,calc((100vw-1280px)/2))] pe-120 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div
-          ref={trackRef}
-          className="flex w-max items-stretch gap-6 px-5 pb-6 will-change-transform sm:gap-14 sm:px-10 max-md:snap-x max-md:snap-mandatory md:pe-[50vw]"
-        >
+      <div className="mt-12 overflow-x-auto md:mt-16 lg:overflow-x-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className="grid grid-cols-1 gap-8 px-5 sm:px-6 md:grid-cols-2 lg:mt-4 lg:flex lg:w-max lg:flex-row lg:items-stretch lg:gap-10 lg:ps-[max(1.5rem,calc((100vw-1280px)/2))] lg:pe-[50vw]">
           {projects.map((project) => (
-            <ProjectCard
-              key={project.title}
-              {...project}
-              className="aspect-square w-[min(88vw,680px)] shrink-0 max-md:snap-center"
-            />
+            <ProjectCard key={project.title} {...project} className="shrink-0 lg:w-[min(42vw,680px)]" />
           ))}
         </div>
       </div>

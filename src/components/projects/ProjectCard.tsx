@@ -22,9 +22,9 @@ export function ProjectCard({
 }: ProjectCardProps) {
   const content = (
     <Card
-      className={`flex w-full flex-col overflow-hidden border-3 border-black bg-card md:h-full md:flex-row ${className ?? ''}`.trim()}
+      className={`flex h-full w-full flex-col overflow-hidden border-3 border-black bg-card lg:flex-row ${className ?? ''}`.trim()}
     >
-      <div className="bg-muted relative ms-6 me-6 mt-6 aspect-square w-[calc(100%-3rem)] shrink-0 overflow-hidden rounded-2xl md:me-0 md:mt-2 md:ms-8 md:mb-4 md:w-[calc(50%-2rem)]">
+      <div className="bg-muted relative aspect-video w-full shrink-0 overflow-hidden lg:my-4 lg:ms-4 lg:aspect-square lg:w-[calc(50%-2rem)]">
         {image ? (
           <img
             src={image}
@@ -40,7 +40,7 @@ export function ProjectCard({
         )}
       </div>
 
-      <div className="flex w-full min-w-0 flex-1 flex-col px-6 py-5 md:w-1/2 lg:px-10">
+      <div className="flex w-full min-w-0 flex-1 flex-col px-6 py-5 lg:w-[calc(50%-2rem)] lg:px-8 lg:py-6 xl:px-10">
         <CardHeader className="p-0">
           {eyebrow ? <p className="eyebrow text-accent-sky">{eyebrow}</p> : null}
           <CardTitle className="font-heading mt-3 text-3xl leading-none tracking-tight sm:text-4xl">
