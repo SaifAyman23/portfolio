@@ -1,4 +1,5 @@
 import { File, Github, Linkedin, Mail } from 'lucide-react'
+
 import { CONTACT } from '@/lib/constants'
 
 const classes =
@@ -35,7 +36,14 @@ export default function HeroContactBar() {
             LinkedIn
           </a>
         )}
-        <a href={"https://drive.google.com/file/d/1OpzN5YNosHrEHZgwcRois3GUPISZ9ktk/view?usp=sharing"} target="_blank" rel="noreferrer" className={classes}>
+        <a
+          href={
+            'https://drive.google.com/file/d/1OpzN5YNosHrEHZgwcRois3GUPISZ9ktk/view?usp=sharing'
+          }
+          target="_blank"
+          rel="noreferrer"
+          className={classes}
+        >
           <File className="h-4 w-4" aria-hidden="true" />
           Resume
         </a>

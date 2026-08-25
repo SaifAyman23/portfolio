@@ -6,7 +6,7 @@ import react from '@vitejs/plugin-react'
 import { loadEnv, type Plugin } from 'vite'
 import { defineConfig } from 'vitest/config'
 
-const DEFAULT_SITE_URL = 'https://example.com'
+const DEFAULT_SITE_URL = 'https://saifayman23.github.io/portfolio/'
 
 const SITEMAP_PATHS = [{ path: '/', priority: '1.0' }]
 
