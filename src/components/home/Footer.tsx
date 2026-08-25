@@ -15,7 +15,7 @@ export default function Footer() {
   const hasLinkedin = CONTACT.linkedin !== ''
 
   return (
-    <footer className="relative px-10 bg-background">
+    <footer className="relative bg-background px-4 sm:px-6 md:px-10">
       <div className="relative mx-auto overflow-hidden rounded-t-3xl bg-black">
         <img
           src={footerBg}
@@ -27,7 +27,7 @@ export default function Footer() {
         />
 
         <div className="relative flex flex-col w-full pt-10 sm:pt-12">
-          <div className="flex items-center justify-center gap-x-6 gap-y-3 text-sm">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-sm">
             {hasEmail && (
               <a href={`mailto:${CONTACT.email}`} className={classes}>
                 <Mail className="h-5 w-5" aria-hidden="true" />
@@ -67,7 +67,7 @@ export default function Footer() {
             rights reserved
           </p>
 
-          <div className="relative h-150">
+          <div className="relative h-56 sm:h-72 md:h-150">
             <img
               src={mountain}
               alt=""

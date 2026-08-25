@@ -43,8 +43,8 @@ export default function Projects() {
   }, [])
 
   return (
-    <section ref={rootRef} className="relative overflow-hidden bg-background pb-40">
-      <div className="mx-auto max-w-7xl px-6">
+    <section ref={rootRef} className="relative overflow-hidden bg-background pt-24 md:pt-32 md:pb-40 pb-16">
+      <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <p className="eyebrow">Selected Work</p>
         <h2 className="font-heading mt-4 text-[clamp(3rem,9vw,8.5rem)] font-black uppercase leading-[0.9] tracking-tight">
           Things I&apos;ve
@@ -56,17 +56,17 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="mt-20 md:px-[max(1.5rem,calc((100vw-1280px)/2))] pe-120">
+      <div className="mt-20 overflow-x-auto md:overflow-x-visible md:px-[max(1.5rem,calc((100vw-1280px)/2))] pe-120">
         <div
           ref={trackRef}
-          className="flex w-max items-stretch gap-14 px-10 pb-6 will-change-transform"
+          className="flex w-max items-stretch gap-14 px-10 pb-6 will-change-transform max-md:snap-x max-md:snap-mandatory"
           style={{ paddingRight: '50vw' }}
         >
           {projects.map((project) => (
             <ProjectCard
               key={project.title}
               {...project}
-              className="aspect-square w-[min(88vw,680px)] shrink-0"
+              className="aspect-square w-[min(88vw,680px)] shrink-0 max-md:snap-center"
             />
           ))}
         </div>

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+
 import AccordionGallery, { type AccordionGalleryItem } from '../bits/AccordionGallery'
 
 import g1 from '@/assets/img/gallery/1.webp'
@@ -19,7 +21,23 @@ const items: AccordionGalleryItem[] = [
   { image: g5 },
 ]
 
+function useIsMobile() {
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsMobile(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  return isMobile
+}
+
 export default function Gallery({ className }: GalleryProps) {
+  const isMobile = useIsMobile()
+
   return (
     <section className={cn('relative overflow-hidden bg-background px-6 pb-36', className)}>
       <div className="mx-auto max-w-7xl">
@@ -32,7 +50,7 @@ export default function Gallery({ className }: GalleryProps) {
           items={items}
           defaultIndex={2}
           expandRatio={0.52}
-          trigger="hover"
+          trigger={isMobile ? 'click' : 'hover'}
           accentColor="#ffffff"
           overlayColor="#000000"
           textColor="#ffffff"
@@ -43,10 +61,10 @@ export default function Gallery({ className }: GalleryProps) {
           parallax={0.5}
           tilt={8}
           stagger={0.06}
-          height={460}
-          gap={10}
+          height={isMobile ? 320 : 460}
+          gap={isMobile ? 6 : 10}
           radius={16}
-          orientation="horizontal"
+          orientation={isMobile ? 'vertical' : 'horizontal'}
         />
       </div>
     </section>

@@ -13,7 +13,7 @@ export default function HeroContactBar() {
   if (!hasEmail && !hasGithub && !hasLinkedin) return null
 
   return (
-    <div className="absolute inset-x-0 top-0 z-30 flex  items-center justify-center gap-3 px-8 py-5 md:px-12">
+    <div className="absolute inset-x-0 top-0 z-30 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 px-5 py-4 sm:justify-between md:px-12">
       <div className="flex items-center text-sm text-white/85">
         {hasEmail && (
           <a href={`mailto:${CONTACT.email}`} className={classes}>

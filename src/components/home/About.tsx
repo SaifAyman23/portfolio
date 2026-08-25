@@ -50,6 +50,14 @@ export default function About() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
+      const isSmall = typeof window !== 'undefined' && window.innerWidth < 640
+      const k = isSmall ? 0.45 : 1
+      const scaleOffsets = (o: { x: number; y: number; rotation: number }) => ({
+        x: o.x * k,
+        y: o.y * k,
+        rotation: o.rotation,
+      })
+
       if (headingRef.current) {
         gsap.fromTo(
           headingRef.current,
@@ -74,7 +82,7 @@ export default function About() {
 
       items.forEach((item, i) => {
         gsap.set(item, {
-          ...(photos[i].stacked ?? STACKED[i]),
+          ...scaleOffsets(photos[i].stacked ?? STACKED[i]),
           zIndex: i + 1,
           force3D: true,
         })
@@ -92,13 +100,13 @@ export default function About() {
         })
         .to(
           items[0],
-          { ...(photos[0].scatter ?? SCATTER[0]), duration: 1, ease: 'sine.inOut', force3D: true },
+          { ...scaleOffsets(photos[0].scatter ?? SCATTER[0]), duration: 1, ease: 'sine.inOut', force3D: true },
           0
         )
         .to(
           items[1],
           {
-            ...(photos[1].scatter ?? SCATTER[1]),
+            ...scaleOffsets(photos[1].scatter ?? SCATTER[1]),
             scale: 1.05,
             duration: 1,
             ease: 'sine.inOut',
@@ -108,7 +116,7 @@ export default function About() {
         )
         .to(
           items[2],
-          { ...(photos[2].scatter ?? SCATTER[2]), duration: 1, ease: 'sine.inOut', force3D: true },
+          { ...scaleOffsets(photos[2].scatter ?? SCATTER[2]), duration: 1, ease: 'sine.inOut', force3D: true },
           0
         )
     }, sectionRef)

@@ -44,7 +44,7 @@ export default function Experience() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-background px-6 py-32">
+    <section ref={sectionRef} className="relative overflow-hidden bg-background px-5 py-20 sm:px-6 md:py-32">
       <div className="mx-auto max-w-7xl">
         <p className="eyebrow">Experience</p>
         <h2 className="mt-4 max-w-5xl font-heading text-[clamp(3rem,9vw,8.5rem)] font-black uppercase leading-[0.9] tracking-tight">
@@ -56,7 +56,7 @@ export default function Experience() {
           Two years of work across teams, clients, and my own projects.
         </p>
 
-        <div className="mt-16 grid grid-cols-4 gap-6">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-4">
           <div className="col-span-3">
             <ScrollReveal baseOpacity={0.1} enableBlur baseRotation={0} blurStrength={15}>
               I got my start in frontend at Genius AI. React and TypeScript, shipping production
@@ -66,7 +66,7 @@ export default function Experience() {
           </div>
 
           <div data-from="right" className="reveal-panel will-change-transform">
-            <div className="relative h-72 w-full overflow-hidden rounded-2xl border bg-card md:h-80">
+            <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl border bg-card md:h-80">
               <div className="absolute inset-0">
                 <Beams
                   beamWidth={3}
@@ -82,9 +82,9 @@ export default function Experience() {
             </div>
           </div>
         </div>
-        <div className="mt-16 grid grid-cols-4 gap-6">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-4">
           <div data-from="left" className="reveal-panel will-change-transform">
-            <div className="relative h-72 w-full overflow-hidden rounded-2xl border bg-card md:h-80">
+            <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl border bg-card md:h-80">
               <div className="absolute inset-0">
                 <Silk speed={5} scale={1} color="#150069" noiseIntensity={1.5} rotation={0} />
               </div>
@@ -100,9 +100,9 @@ export default function Experience() {
           </div>
         </div>
 
-        <div className="mt-16 grid grid-cols-4 gap-6">
+        <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-4">
           <div data-from="center" className="reveal-panel col-span-full will-change-transform">
-            <div className="relative w-full overflow-hidden rounded-2xl border bg-card h-64">
+            <div className="relative w-full overflow-hidden rounded-2xl border bg-card h-56 md:h-80">
               <div className="absolute inset-0">
                 <DarkVeil
                   hueShift={0}
@@ -127,3 +127,4 @@ export default function Experience() {
     </section>
   )
 }
+
