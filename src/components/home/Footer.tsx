@@ -60,7 +60,11 @@ export default function Footer() {
           >
             Saif Eldin Ayman
           </h2> */}
-          <img src={name} alt="Saif Eldin Ayman" className="mx-auto mt-16 select-none w-5/6 sm:w-2/3" />
+          <img
+            src={name}
+            alt="Saif Eldin Ayman"
+            className="mx-auto mt-16 select-none w-5/6 sm:w-2/3"
+          />
 
           <p className="mt-15 text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
             &copy; {year} Saif Eldin Ayman &middot; Ship it &amp; forget it &reg; &middot; All

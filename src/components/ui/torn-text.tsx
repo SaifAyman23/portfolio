@@ -1,5 +1,5 @@
 import { gsap } from 'gsap'
-import { forwardRef, useLayoutEffect, useMemo, useRef } from 'react'
+import { forwardRef, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 type TornImage = string | { src: string; scale?: number; className?: string }
 
@@ -15,6 +15,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
   forwardedRef
 ) {
   const localRef = useRef<HTMLElement>(null)
+  const [imgsReady, setImgsReady] = useState(false)
 
   const setRef = (el: HTMLElement | null) => {
     localRef.current = el
@@ -26,6 +27,19 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
     () => images.map((img) => (typeof img === 'string' ? { src: img } : img)),
     [images]
   )
+
+  useEffect(() => {
+    const idle = (cb: () => void) => {
+      if ('requestIdleCallback' in window) {
+        ;(
+          window as unknown as { requestIdleCallback: (cb: () => void) => void }
+        ).requestIdleCallback(cb)
+      } else {
+        setTimeout(cb, 1200)
+      }
+    }
+    idle(() => setImgsReady(true))
+  }, [])
 
   useLayoutEffect(() => {
     const el = localRef.current
@@ -158,7 +172,7 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
               {char}
             </span>
             <img
-              src={item.src}
+              src={imgsReady ? item.src : undefined}
               alt=""
               aria-hidden="true"
               draggable={false}

@@ -1,11 +1,10 @@
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLayoutEffect, useRef } from 'react'
+import { lazy, Suspense, useLayoutEffect, useRef } from 'react'
 
-import Beams from '@/components/bits/Beams'
-import DarkVeil from '@/components/bits/DarkVeil'
 import ScrollReveal from '@/components/bits/ScrollReveal'
-import Silk from '@/components/bits/Silk'
+
+const Beams = lazy(() => import('@/components/bits/Beams'))
+const DarkVeil = lazy(() => import('@/components/bits/DarkVeil'))
+const Silk = lazy(() => import('@/components/bits/Silk'))
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -44,7 +43,10 @@ export default function Experience() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden bg-background px-5 py-20 sm:px-6 md:py-32">
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-background px-5 py-20 sm:px-6 md:py-32"
+    >
       <div className="mx-auto max-w-7xl">
         <p className="eyebrow">Experience</p>
         <h2 className="mt-4 max-w-5xl font-heading text-[clamp(3rem,9vw,8.5rem)] font-black uppercase leading-[0.9] tracking-tight">
@@ -68,16 +70,18 @@ export default function Experience() {
           <div data-from="right" className="reveal-panel will-change-transform">
             <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl border bg-card md:h-80">
               <div className="absolute inset-0">
-                <Beams
-                  beamWidth={3}
-                  beamHeight={30}
-                  beamNumber={20}
-                  lightColor="#F97316"
-                  speed={2}
-                  noiseIntensity={1.75}
-                  scale={0.2}
-                  rotation={30}
-                />
+                <Suspense fallback={null}>
+                  <Beams
+                    beamWidth={3}
+                    beamHeight={30}
+                    beamNumber={20}
+                    lightColor="#F97316"
+                    speed={2}
+                    noiseIntensity={1.75}
+                    scale={0.2}
+                    rotation={30}
+                  />
+                </Suspense>
               </div>
             </div>
           </div>
@@ -86,7 +90,9 @@ export default function Experience() {
           <div data-from="left" className="reveal-panel will-change-transform">
             <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl border bg-card md:h-80">
               <div className="absolute inset-0">
-                <Silk speed={5} scale={1} color="#150069" noiseIntensity={1.5} rotation={0} />
+                <Suspense fallback={null}>
+                  <Silk speed={5} scale={1} color="#150069" noiseIntensity={1.5} rotation={0} />
+                </Suspense>
               </div>
             </div>
           </div>
@@ -104,14 +110,16 @@ export default function Experience() {
           <div data-from="center" className="reveal-panel col-span-full will-change-transform">
             <div className="relative w-full overflow-hidden rounded-2xl border bg-card h-56 md:h-80">
               <div className="absolute inset-0">
-                <DarkVeil
-                  hueShift={0}
-                  noiseIntensity={0}
-                  scanlineIntensity={0}
-                  speed={2.5}
-                  scanlineFrequency={0}
-                  warpAmount={0}
-                />
+                <Suspense fallback={null}>
+                  <DarkVeil
+                    hueShift={0}
+                    noiseIntensity={0}
+                    scanlineIntensity={0}
+                    speed={2.5}
+                    scanlineFrequency={0}
+                    warpAmount={0}
+                  />
+                </Suspense>
               </div>
             </div>
           </div>
@@ -127,4 +135,3 @@ export default function Experience() {
     </section>
   )
 }
-

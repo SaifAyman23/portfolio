@@ -100,7 +100,12 @@ export default function About() {
         })
         .to(
           items[0],
-          { ...scaleOffsets(photos[0].scatter ?? SCATTER[0]), duration: 1, ease: 'sine.inOut', force3D: true },
+          {
+            ...scaleOffsets(photos[0].scatter ?? SCATTER[0]),
+            duration: 1,
+            ease: 'sine.inOut',
+            force3D: true,
+          },
           0
         )
         .to(
@@ -116,7 +121,12 @@ export default function About() {
         )
         .to(
           items[2],
-          { ...scaleOffsets(photos[2].scatter ?? SCATTER[2]), duration: 1, ease: 'sine.inOut', force3D: true },
+          {
+            ...scaleOffsets(photos[2].scatter ?? SCATTER[2]),
+            duration: 1,
+            ease: 'sine.inOut',
+            force3D: true,
+          },
           0
         )
     }, sectionRef)

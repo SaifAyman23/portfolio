@@ -43,7 +43,10 @@ export default function Projects() {
   }, [])
 
   return (
-    <section ref={rootRef} className="relative overflow-hidden bg-background pt-24 md:pt-32 md:pb-40 pb-16">
+    <section
+      ref={rootRef}
+      className="relative overflow-hidden bg-background pt-24 md:pt-32 md:pb-40 pb-16"
+    >
       <div className="mx-auto max-w-7xl px-5 sm:px-6">
         <p className="eyebrow">Selected Work</p>
         <h2 className="font-heading mt-4 text-[clamp(3rem,9vw,8.5rem)] font-black uppercase leading-[0.9] tracking-tight">
