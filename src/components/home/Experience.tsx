@@ -1,7 +1,6 @@
-import { lazy, Suspense, useLayoutEffect, useRef } from 'react'
-
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { lazy, Suspense, useLayoutEffect, useRef } from 'react'
 
 import ScrollReveal from '@/components/bits/ScrollReveal'
 
@@ -24,11 +23,9 @@ export default function Experience() {
           panel,
           {
             opacity: 0.15,
-            filter: 'blur(24px)',
           },
           {
             opacity: 1,
-            filter: 'blur(0px)',
             ease: 'sine.out',
             scrollTrigger: {
               trigger: panel,
@@ -138,4 +135,3 @@ export default function Experience() {
     </section>
   )
 }
-

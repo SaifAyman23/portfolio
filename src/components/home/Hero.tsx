@@ -203,20 +203,16 @@ function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 hidden xl:block overflow-hidden"
           >
-            <img
-              src={fungi11}
-              alt=""
-              className="absolute end-[45%] bottom-0 w-60 lg:max-xl:bottom-6 sm:w-150"
-            />
+            <img src={fungi11} alt="" className="absolute end-[45%] -bottom-5 w-60 sm:w-150" />
             <img
               src={fungi2}
               alt=""
-              className="absolute end-[25%] bottom-10 w-64 lg:max-xl:bottom-14 sm:w-150"
+              className="absolute end-[25%] bottom-0 w-64 lg:max-xl:bottom-14 sm:w-150"
             />
             <img
               src={fungi5}
               alt=""
-              className="absolute start-[10%] bottom-20 w-52 lg:max-xl:bottom-28 sm:w-150"
+              className="absolute start-[10%] bottom-10 w-52 lg:max-xl:bottom-28 sm:w-150"
             />
           </div>
 

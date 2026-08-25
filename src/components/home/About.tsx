@@ -143,7 +143,7 @@ export default function About() {
           ref={headingRef}
           className="font-libertine mt-4 text-center text-[clamp(3rem,8vw,7.5rem)] italic leading-[1.05] tracking-tight text-foreground"
         >
-          The guy behind
+          The man behind
           <br />
           the work
         </h2>

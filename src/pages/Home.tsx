@@ -1,4 +1,5 @@
 import { About, Experience, Footer, Gallery, Hero, Projects, Skills } from '@/components/home'
+import ThemeToggle from '@/components/theme/ThemeToggle'
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
       <About />
       <Gallery />
       <Footer />
+      <ThemeToggle />
     </div>
   )
 }
