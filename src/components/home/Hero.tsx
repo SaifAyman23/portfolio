@@ -46,6 +46,7 @@ function Hero() {
   const headingRef = useRef<HTMLElement>(null)
   const subRef = useRef<HTMLParagraphElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
+  const paperRef = useRef<HTMLImageElement>(null)
   const cloudsRef = useRef<HTMLDivElement>(null)
   const plantsRef = useRef<HTMLDivElement>(null)
   const fungiRef = useRef<HTMLDivElement>(null)
@@ -55,78 +56,122 @@ function Hero() {
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 
     const ctx = gsap.context(() => {
-      const clouds = cloudsRef.current ? Array.from(cloudsRef.current.children) : []
-      const plants = plantsRef.current ? Array.from(plantsRef.current.children) : []
-      const fungi = fungiRef.current ? Array.from(fungiRef.current.children) : []
-      const gradient = gradientRef.current
       const pin = pinRef.current
+      const gradient = gradientRef.current
       const heading = headingRef.current
       const sub = subRef.current
       const content = contentRef.current
-      if (!pin || !gradient || !heading || !sub || !content || clouds.length === 0) return
+      const paper = paperRef.current
+      if (!pin || !gradient || !heading || !sub || !content || !paper) return
 
-      gsap.set(clouds, { yPercent: 125, autoAlpha: 0, force3D: true })
-      gsap.set(plants, { yPercent: 140, autoAlpha: 0, force3D: true })
-      gsap.set(fungi, { yPercent: 155, autoAlpha: 0, force3D: true })
-      gsap.set(heading, { scale: 1.08, transformOrigin: '50% 50%', force3D: true })
-      gsap.set(sub, { yPercent: 8, autoAlpha: 0.9, force3D: true })
-      gsap.set(content, { yPercent: 0, force3D: true })
-      gsap.set([...clouds, ...plants, ...fungi, heading, sub, content], {
-        willChange: 'transform, opacity',
+      const mm = gsap.matchMedia()
+
+      mm.add('(min-width: 1280px)', () => {
+        const clouds = cloudsRef.current ? Array.from(cloudsRef.current.children) : []
+        const plants = plantsRef.current ? Array.from(plantsRef.current.children) : []
+        const fungi = fungiRef.current ? Array.from(fungiRef.current.children) : []
+
+        gsap.set(clouds, { yPercent: 125, autoAlpha: 0, force3D: true })
+        gsap.set(plants, { yPercent: 140, autoAlpha: 0, force3D: true })
+        gsap.set(fungi, { yPercent: 155, autoAlpha: 0, force3D: true })
+        gsap.set(heading, { scale: 1.16, transformOrigin: '50% 50%', force3D: true })
+        gsap.set(sub, { yPercent: 12, autoAlpha: 0.85, force3D: true })
+        gsap.set(content, { yPercent: 6, force3D: true })
+        gsap.set([...clouds, ...plants, ...fungi, heading, sub, content], {
+          willChange: 'transform, opacity',
+        })
+
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '+=400%',
+            scrub: 1.1,
+            pin: pin,
+            anticipatePin: 1,
+            pinSpacing: true,
+            invalidateOnRefresh: true,
+          },
+        })
+
+        tl.to(heading, { scale: 1, duration: 1, ease: 'power1.inOut' }, 0)
+          .to(sub, { yPercent: 0, autoAlpha: 1, duration: 1, ease: 'power1.inOut' }, 0)
+          .to(content, { yPercent: 0, duration: 1, ease: 'power1.inOut' }, 0)
+          .to(
+            clouds,
+            {
+              yPercent: 15,
+              autoAlpha: 1,
+              duration: 0.85,
+              stagger: { each: 0.09, from: 'random' },
+              ease: 'sine.out',
+            },
+            0.08
+          )
+          .to(
+            plants,
+            {
+              yPercent: 0,
+              autoAlpha: 1,
+              duration: 0.85,
+              stagger: { each: 0.09, from: 'random' },
+              ease: 'sine.out',
+            },
+            0.3
+          )
+          .to(
+            fungi,
+            {
+              yPercent: 0,
+              autoAlpha: 1,
+              duration: 0.9,
+              stagger: { each: 0.1, from: 'random' },
+              ease: 'sine.out',
+            },
+            0.52
+          )
+          .to({}, { duration: 0.35 })
+          .to({}, { duration: 1 })
+          .to({}, { duration: 2 })
       })
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top top',
-          end: '+=400%',
-          scrub: 1.1,
-          pin: pin,
-          anticipatePin: 1,
-          pinSpacing: true,
-          invalidateOnRefresh: true,
-        },
-      })
+      mm.add('(max-width: 1279px)', () => {
+        gsap.set(heading, { scale: 1.15, autoAlpha: 0, filter: 'blur(12px)', force3D: true })
+        gsap.set(sub, { y: 26, autoAlpha: 0, force3D: true })
+        gsap.set(content, { yPercent: 0, force3D: true })
+        gsap.set(paper, { scale: 1.22, transformOrigin: '50% 40%', force3D: true })
+        gsap.set([heading, sub, content, paper], { willChange: 'transform, opacity, filter' })
 
-      tl.to(heading, { scale: 1, duration: 1, ease: 'power1.inOut' }, 0)
-        .to(sub, { yPercent: 0, autoAlpha: 1, duration: 1, ease: 'power1.inOut' }, 0)
-        .to(content, { yPercent: 0, duration: 1, ease: 'power1.inOut' }, 0)
-        .to(
-          clouds,
-          {
-            yPercent: 15,
-            autoAlpha: 1,
-            duration: 0.85,
-            stagger: { each: 0.09, from: 'random' },
-            ease: 'sine.out',
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top top',
+            end: '+=180%',
+            scrub: 1.1,
+            pin: pin,
+            anticipatePin: 1,
+            pinSpacing: true,
+            invalidateOnRefresh: true,
           },
-          0.08
-        )
-        .to(
-          plants,
-          {
-            yPercent: 0,
-            autoAlpha: 1,
-            duration: 0.85,
-            stagger: { each: 0.09, from: 'random' },
-            ease: 'sine.out',
-          },
-          0.3
-        )
-        .to(
-          fungi,
-          {
-            yPercent: 0,
-            autoAlpha: 1,
-            duration: 0.9,
-            stagger: { each: 0.1, from: 'random' },
-            ease: 'sine.out',
-          },
-          0.52
-        )
-        .to({}, { duration: 0.35 })
-        .to({}, { duration: 1 })
-        .to({}, { duration: 2 })
+        })
+
+        tl.to(paper, { scale: 1, duration: 1, ease: 'power2.out' }, 0)
+          .to(
+            heading,
+            {
+              scale: 1,
+              autoAlpha: 1,
+              filter: 'blur(0px)',
+              duration: 0.7,
+              ease: 'power2.out',
+              force3D: true,
+            },
+            0
+          )
+          .to(sub, { y: 0, autoAlpha: 1, duration: 0.6, ease: 'power2.out' }, 0.3)
+          .to({}, { duration: 0.6 })
+          .to({}, { duration: 1.4 })
+      })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -145,6 +190,7 @@ function Hero() {
           <HeroContactBar />
 
           <img
+            ref={paperRef}
             src={bgPaper}
             alt=""
             aria-hidden="true"
@@ -154,27 +200,27 @@ function Hero() {
           <div
             ref={fungiRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
+            className="pointer-events-none absolute inset-0 hidden xl:block overflow-hidden"
           >
-            <img src={fungi11} alt="" className="absolute end-[45%] bottom-0 w-60 sm:w-150" />
-            <img src={fungi2} alt="" className="absolute end-[25%] bottom-10 w-64 sm:w-150" />
-            <img src={fungi5} alt="" className="absolute start-[10%] bottom-20 w-52 sm:w-150" />
+            <img src={fungi11} alt="" className="absolute end-[45%] bottom-0 w-60 lg:max-xl:bottom-6 sm:w-150" />
+            <img src={fungi2} alt="" className="absolute end-[25%] bottom-10 w-64 lg:max-xl:bottom-14 sm:w-150" />
+            <img src={fungi5} alt="" className="absolute start-[10%] bottom-20 w-52 lg:max-xl:bottom-28 sm:w-150" />
           </div>
 
           <div
             ref={plantsRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 overflow-hidden"
+            className="pointer-events-none absolute inset-0 hidden xl:block overflow-hidden"
           >
-            <img src={plant3} alt="" className="absolute end-[0%] -bottom-16 w-60 rotate-30 sm:-bottom-40 sm:w-150" />
-            <img src={plants2} alt="" className="absolute end-[40%] bottom-10 w-32 sm:w-100" />
+            <img src={plant3} alt="" className="absolute end-[0%] -bottom-16 w-60 rotate-30 sm:-bottom-40 sm:w-150 lg:max-xl:bottom-4" />
+            <img src={plants2} alt="" className="absolute end-[40%] bottom-10 w-32 sm:w-100 lg:max-xl:bottom-16" />
             <img src={plants4} alt="" className="absolute -start-[35%] -bottom-[45%] w-250 sm:w-400" />
           </div>
 
           <div
             ref={cloudsRef}
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
+            className="pointer-events-none absolute inset-0 z-10 hidden xl:block overflow-hidden"
           >
             <img src={cloud10} alt="" className="absolute -start-20 top-[42%] w-72 sm:-start-40 sm:top-130 sm:w-300" />
             <img src={cloud11} alt="" className="absolute start-6 top-[46%] w-80 sm:start-60 sm:top-130 sm:w-300" />
@@ -207,3 +253,6 @@ function Hero() {
 }
 
 export default Hero
+
+
+
