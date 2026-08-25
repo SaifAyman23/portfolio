@@ -68,7 +68,7 @@ export default function Experience() {
           </div>
 
           <div data-from="right" className="reveal-panel will-change-transform">
-            <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl border bg-card md:h-80">
+            <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl bg-card md:h-80">
               <div className="absolute inset-0">
                 <Suspense fallback={null}>
                   <Beams
@@ -88,7 +88,7 @@ export default function Experience() {
         </div>
         <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-4">
           <div data-from="left" className="reveal-panel will-change-transform">
-            <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl border bg-card md:h-80">
+            <div className="relative h-60 w-full overflow-hidden sm:h-72 md:h-80 rounded-2xl bg-card md:h-80">
               <div className="absolute inset-0">
                 <Suspense fallback={null}>
                   <Silk speed={5} scale={1} color="#150069" noiseIntensity={1.5} rotation={0} />
@@ -108,7 +108,7 @@ export default function Experience() {
 
         <div className="mt-10 grid grid-cols-1 gap-6 md:mt-16 md:grid-cols-4">
           <div data-from="center" className="reveal-panel col-span-full will-change-transform">
-            <div className="relative w-full overflow-hidden rounded-2xl border bg-card h-56 md:h-80">
+            <div className="relative w-full overflow-hidden rounded-2xl bg-background h-56 md:h-80">
               <div className="absolute inset-0">
                 <Suspense fallback={null}>
                   <DarkVeil

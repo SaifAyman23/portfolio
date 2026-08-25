@@ -21,8 +21,7 @@ export default function Projects() {
       const track = trackRef.current
       if (!track || window.innerWidth < 768) return
 
-      const getDistance = () =>
-        Math.max(0, track.scrollWidth - window.innerWidth + 96)
+      const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 96)
 
       gsap.to(track, {
         x: () => -getDistance(),
@@ -58,7 +57,7 @@ export default function Projects() {
         </h2>
 
         <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:mt-6 sm:text-xl md:text-2xl">
-          A few projects I worked on. Each one taught me something specific.
+          A few projects I worked on. Each one taught me something unique.
         </p>
       </div>
 
@@ -86,4 +85,23 @@ export default function Projects() {
             max-md:snap-x
             max-md:snap-mandatory
           "
-      
+        >
+          {projects.map((project) => (
+            <ProjectCard
+              key={project.title}
+              {...project}
+              className="
+                w-[calc(100vw-2.5rem)]
+                max-w-[680px]
+                shrink-0
+                max-md:snap-center
+                sm:w-[min(88vw,680px)]
+                md:w-[min(78vw,680px)]
+              "
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

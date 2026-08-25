@@ -21,7 +21,7 @@ export default function ThemeToggle() {
       />
       <Moon
         aria-hidden="true"
-        className="absolute h-5 w-5 rotate-0 scale-100 text-indigo-300 transition-all duration-500 dark:-rotate-90 dark:scale-0"
+        className="absolute h-5 w-5 rotate-0 scale-100 text-blue-300 transition-all duration-500 dark:-rotate-90 dark:scale-0"
       />
     </button>
   )
