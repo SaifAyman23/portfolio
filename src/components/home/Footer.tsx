@@ -1,4 +1,4 @@
-import { Github, Linkedin, Mail } from 'lucide-react'
+import { Github, Linkedin, Mail, File } from 'lucide-react'
 
 import footerBg from '@/assets/img/footer-bg.webp'
 import mountain from '@/assets/img/mountains 1.webp'
@@ -46,6 +46,10 @@ export default function Footer() {
                 <span>LinkedIn</span>
               </a>
             )}
+            <a href={"https://drive.google.com/file/d/1OpzN5YNosHrEHZgwcRois3GUPISZ9ktk/view?usp=sharing"} target="_blank" rel="noreferrer" className={classes}>
+              <File className="h-4 w-4" aria-hidden="true" />
+              Resume
+            </a>
           </div>
 
           <p className="font-body mx-auto mt-15 max-w-4xl text-center text-md max-sm:mx-5 leading-relaxed text-muted-foreground sm:text-xl">
@@ -66,7 +70,7 @@ export default function Footer() {
             className="mx-auto mt-16 select-none w-5/6 sm:w-2/3"
           />
 
-          <p className="mt-15 text-center text-xs uppercase tracking-[0.25em] text-muted-foreground">
+          <p className="mt-15 text-center text-xs mx-10 uppercase tracking-[0.25em] text-muted-foreground">
             &copy; {year} Saif Eldin Ayman &middot; Ship it &amp; forget it &reg; &middot; All
             rights reserved
           </p>

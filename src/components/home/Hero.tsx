@@ -185,7 +185,7 @@ function Hero() {
       >
         <div
           ref={gradientRef}
-          className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#68bdf2] to-[#DCF2FF]"
+          className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#68bdf2] to-[#DCF2FF] dark:from-[#0838a9] dark:to-[#040429]"
         >
           <HeroContactBar />
 
@@ -195,7 +195,7 @@ function Hero() {
             src={bgPaper}
             alt=""
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-color-burn"
+            className="pointer-events-none absolute inset-0 h-full w-full object-cover mix-blend-color-burn dark:mix-blend-multiply"
           />
 
           <div
@@ -272,7 +272,7 @@ function Hero() {
             />
             <p
               ref={subRef}
-              className="mx-auto mt-3 max-w-4xl text-center text-[clamp(0.95rem,1.6vw,1.5rem)] leading-relaxed font-bold text-[#4D92BC]"
+              className="mx-auto mt-3 max-w-4xl text-center text-[clamp(0.95rem,1.6vw,1.5rem)] leading-relaxed font-bold text-[#4D92BC] dark:text-blue-400"
             >
               Two years of building the whole stack. <br className="hidden sm:block" />
               ERPs, delivery platforms, AI tools, live-streaming infra. Django under the hood, React
