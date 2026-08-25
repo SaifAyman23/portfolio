@@ -8,10 +8,11 @@ interface TornTextProps {
   images: TornImage[]
   as?: 'h1' | 'h2' | 'h3' | 'div' | 'p' | 'span'
   className?: string
+  onReady?: () => void
 }
 
 export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText(
-  { text, images, as: Tag = 'h1', className },
+  { text, images, as: Tag = 'h1', className, onReady },
   forwardedRef
 ) {
   const localRef = useRef<HTMLElement>(null)
@@ -38,8 +39,15 @@ export const TornText = forwardRef<HTMLElement, TornTextProps>(function TornText
         setTimeout(cb, 1200)
       }
     }
-    idle(() => setImgsReady(true))
-  }, [])
+    idle(() => {
+      normalized.forEach((item) => {
+        const img = new Image()
+        img.src = item.src
+      })
+      setImgsReady(true)
+      onReady?.()
+    })
+  }, [normalized, onReady])
 
   useLayoutEffect(() => {
     const el = localRef.current

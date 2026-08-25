@@ -1,6 +1,6 @@
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useLayoutEffect, useRef } from 'react'
+import { useCallback, useLayoutEffect, useRef, useState } from 'react'
 
 import bgPaper from '../../assets/img/hero/background paper 3.webp'
 import cloud10 from '../../assets/img/hero/cloud 10.webp'
@@ -23,6 +23,8 @@ import nTorn from '../../assets/img/hero/Saif Eldin/n torn 1.webp'
 import sTorn from '../../assets/img/hero/Saif Eldin/s torn 2.webp'
 
 import HeroContactBar from '@/components/home/HeroContactBar'
+import { HeroHint } from '@/components/home/HeroHint'
+import { HeroHoverCue } from '@/components/home/HeroHoverCue'
 import { TornText } from '@/components/ui/torn-text'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -50,6 +52,9 @@ function Hero() {
   const cloudsRef = useRef<HTMLDivElement>(null)
   const plantsRef = useRef<HTMLDivElement>(null)
   const fungiRef = useRef<HTMLDivElement>(null)
+  const [nameLoaded, setNameLoaded] = useState(false)
+  const [atTop, setAtTop] = useState(true)
+  const handleNameReady = useCallback(() => setNameLoaded(true), [])
 
   useLayoutEffect(() => {
     if (typeof window === 'undefined') return
@@ -172,6 +177,20 @@ function Hero() {
           .to({}, { duration: 0.6 })
           .to({}, { duration: 1.4 })
       })
+
+      let top = true
+      ScrollTrigger.create({
+        trigger: sectionRef.current,
+        start: 'top top',
+        end: '+=300',
+        onUpdate: (self) => {
+          const isTop = self.progress < 0.04
+          if (isTop !== top) {
+            top = isTop
+            setAtTop(isTop)
+          }
+        },
+      })
     }, sectionRef)
 
     return () => ctx.revert()
@@ -188,6 +207,8 @@ function Hero() {
           className="bg-linear-to-b relative flex w-full flex-1 flex-col items-center justify-center overflow-hidden from-[#68bdf2] to-[#DCF2FF] dark:from-[#0838a9] dark:to-[#040429]"
         >
           <HeroContactBar />
+          <HeroHoverCue visible={nameLoaded} />
+          <HeroHint visible={!nameLoaded || atTop} loading={!nameLoaded} />
 
           <img
             ref={paperRef}
@@ -262,12 +283,13 @@ function Hero() {
 
           <div
             ref={contentRef}
-            className="relative z-20 flex max-w-full flex-col items-center justify-center px-6 text-center"
-          >
+              className="relative z-20 flex max-w-full flex-col items-center justify-center px-6 text-center"
+            >
             <TornText
               ref={headingRef}
               text="Saif Eldin"
               images={heroImages}
+              onReady={handleNameReady}
               className="font-heavitas flex max-w-full flex-nowrap items-end justify-center whitespace-nowrap leading-none text-white [font-size:min(10.4vw,170px)]"
             />
             <p

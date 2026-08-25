@@ -1,5 +1,6 @@
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { FadeImage } from '@/components/ui/FadeImage'
 
 interface ProjectCardProps {
   eyebrow?: string
@@ -61,9 +62,11 @@ export function ProjectCard({
         "
       >
         {image ? (
-          <img
+          <FadeImage
             src={image}
             alt=""
+            width={1920}
+            height={1858}
             className="absolute inset-0 h-full w-full object-cover"
             loading="lazy"
             decoding="async"

@@ -5,25 +5,37 @@ import { useLayoutEffect, useRef } from 'react'
 import photoLeft from '@/assets/img/about/left.webp'
 import photoMiddle from '@/assets/img/about/middle.webp'
 import photoRight from '@/assets/img/about/right.webp'
+import { FadeImage } from '@/components/ui/FadeImage'
 import { cn } from '@/lib/utils'
 
 gsap.registerPlugin(ScrollTrigger)
 
 interface AboutPhoto {
   src: string
+  width: number
+  height: number
   className?: string
   scatter?: { x: number; y: number; rotation: number }
   stacked?: { x: number; y: number; rotation: number }
 }
 
 const photos: AboutPhoto[] = [
-  { src: photoLeft, className: 'h-[360px] w-[280px] will-change-transform sm:size-170' },
+  {
+    src: photoLeft,
+    width: 3638,
+    height: 3745,
+    className: 'h-[360px] w-[280px] will-change-transform sm:size-170',
+  },
   {
     src: photoMiddle,
+    width: 1947,
+    height: 3284,
     className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[360px]',
   },
   {
     src: photoRight,
+    width: 2679,
+    height: 2796,
     className: 'h-[360px] w-[280px] will-change-transform sm:h-[480px] sm:w-[420px]',
   },
 ]
@@ -154,12 +166,14 @@ export default function About() {
         >
           {photos.map((photo) => (
             <div key={photo.src} className={cn('about-photo absolute ', photo.className)}>
-              <img
+              <FadeImage
                 src={photo.src}
                 alt=""
                 draggable={false}
                 loading="lazy"
                 decoding="async"
+                width={photo.width}
+                height={photo.height}
                 className="h-full w-full rounded-2xl object-cover"
               />
             </div>

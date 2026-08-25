@@ -6,10 +6,11 @@ export function initSmoothScroll() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return null
 
   const lenis = new Lenis({
-    lerp: 0.09,
+    lerp: 0.08,
     smoothWheel: true,
     wheelMultiplier: 1,
-    touchMultiplier: 1.4,
+    touchMultiplier: 1.2,
+    gestureOrientation: 'vertical',
   })
 
   lenis.on('scroll', ScrollTrigger.update)
