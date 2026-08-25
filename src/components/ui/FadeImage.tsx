@@ -9,7 +9,11 @@ export function FadeImage({ className, onLoad, ...props }: FadeImageProps) {
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    if (ref.current?.complete) setLoaded(true)
+    const el = ref.current
+    if (el?.complete) {
+      const id = requestAnimationFrame(() => setLoaded(true))
+      return () => cancelAnimationFrame(id)
+    }
   }, [])
 
   return (
@@ -22,7 +26,7 @@ export function FadeImage({ className, onLoad, ...props }: FadeImageProps) {
       className={cn(
         'transition-opacity duration-700 ease-out',
         loaded ? 'opacity-100' : 'opacity-0',
-        className,
+        className
       )}
       {...props}
     />

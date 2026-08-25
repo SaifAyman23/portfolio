@@ -224,15 +224,25 @@ function Hero() {
             aria-hidden="true"
             className="pointer-events-none absolute inset-0 hidden xl:block overflow-hidden"
           >
-            <img src={fungi11} alt="" className="absolute end-[45%] -bottom-5 w-60 sm:w-150" />
+            <img
+              src={fungi11}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="absolute end-[45%] -bottom-5 w-60 sm:w-150"
+            />
             <img
               src={fungi2}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute end-[25%] bottom-0 w-64 lg:max-xl:bottom-14 sm:w-150"
             />
             <img
               src={fungi5}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute start-[10%] bottom-10 w-52 lg:max-xl:bottom-28 sm:w-150"
             />
           </div>
@@ -245,16 +255,22 @@ function Hero() {
             <img
               src={plant3}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute end-[0%] -bottom-16 w-60 rotate-30 sm:-bottom-40 sm:w-150 lg:max-xl:bottom-4"
             />
             <img
               src={plants2}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute end-[40%] bottom-10 w-32 sm:w-100 lg:max-xl:bottom-16"
             />
             <img
               src={plants4}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute -start-[35%] -bottom-[45%] w-250 sm:w-400"
             />
           </div>
@@ -267,24 +283,30 @@ function Hero() {
             <img
               src={cloud10}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute -start-20 top-[42%] w-72 sm:-start-40 sm:top-130 sm:w-300"
             />
             <img
               src={cloud11}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute start-6 top-[46%] w-80 sm:start-60 sm:top-130 sm:w-300"
             />
             <img
               src={cloud9}
               alt=""
+              loading="lazy"
+              decoding="async"
               className="absolute -end-14 top-[44%] w-72 sm:-end-50 sm:top-130 sm:w-300"
             />
           </div>
 
           <div
             ref={contentRef}
-              className="relative z-20 flex max-w-full flex-col items-center justify-center px-6 text-center"
-            >
+            className="relative z-20 flex max-w-full flex-col items-center justify-center px-6 text-center"
+          >
             <TornText
               ref={headingRef}
               text="Saif Eldin"

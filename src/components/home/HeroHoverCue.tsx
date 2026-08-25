@@ -50,7 +50,10 @@ export function HeroHoverCue({ visible }: { visible: boolean }) {
       aria-hidden="true"
       className="pointer-events-none absolute left-1/2 top-[26%] z-20 w-[min(92vw,680px)] -translate-x-1/2 rotate-[-2deg] overflow-hidden rounded-lg bg-white py-2 opacity-0"
     >
-      <div ref={trackRef} className="flex w-max items-center whitespace-nowrap will-change-transform">
+      <div
+        ref={trackRef}
+        className="flex w-max items-center whitespace-nowrap will-change-transform"
+      >
         <span className="font-mono text-sm font-semibold uppercase tracking-[0.22em] text-[#4D92BC] dark:text-blue-400 sm:text-base">
           {TAPE_PHRASE}
         </span>
