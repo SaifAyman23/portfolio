@@ -16,7 +16,7 @@ export default function Footer() {
 
   return (
     <footer className="relative bg-background px-4 sm:px-6 md:px-10">
-      <div className="relative mx-auto overflow-hidden rounded-t-3xl bg-black">
+      <div className="relative mx-auto max-w-[1400px] overflow-hidden rounded-t-3xl bg-black">
         <img
           src={footerBg}
           alt=""

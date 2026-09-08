@@ -26,21 +26,23 @@ export default function Projects() {
 
     const ctx = gsap.context(() => {
       const track = trackRef.current
-      if (!track || window.innerWidth < 768) return
+      const vw = window.innerWidth
+      if (!track || vw < 768 || vw > 2560) return
 
-      const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 96)
+      const getDistance = () => Math.max(0, track.scrollWidth - window.innerWidth + 48)
 
       gsap.to(track, {
         x: () => -getDistance(),
-        ease: '1',
+        ease: 'none',
         force3D: true,
         scrollTrigger: {
           trigger: rootRef.current,
           start: 'top top',
-          end: SCROLL_DISTANCE(projects.length),
-          scrub: 1.2,
+          end: () => `+=${getDistance() + window.innerHeight * 0.5}`,
+          scrub: 0.9,
           pin: true,
           anticipatePin: 1,
+          pinSpacing: true,
           invalidateOnRefresh: true,
         },
       })
@@ -122,7 +124,7 @@ export default function Projects() {
         </p>
       </div>
 
-      <div className="md:hidden px-5 py-6">
+      <div className="px-5 py-6 md:hidden min-[2561px]:!block min-[2561px]:px-0">
         <div className="relative mx-auto w-full max-w-[680px]">
           <div className="relative min-h-[660px] overflow-hidden rounded-2xl sm:min-h-[680px] [clip-path:inset(0_round_16px)]">
             {projects.map((project, i) => (
@@ -191,7 +193,7 @@ export default function Projects() {
         </div>
       </div>
 
-      <div ref={rootRef} className="relative hidden overflow-hidden bg-background md:block">
+      <div ref={rootRef} className="relative hidden overflow-hidden bg-background md:block min-[2561px]:!hidden">
         <div
           className="
             flex h-[100svh] min-h-[500px] w-full items-center overflow-hidden
