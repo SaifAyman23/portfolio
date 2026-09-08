@@ -53,7 +53,8 @@ export function HeroHint({ visible, loading }: HeroHintProps) {
     if (!el) return
 
     loadingRef.current = loading
-    gsap.set(el, { autoAlpha: 0 })
+    const isMobile = window.innerWidth < 1280
+    gsap.set(el, { autoAlpha: visible || isMobile ? 1 : 0, y: 0, filter: 'blur(0px)' })
 
     const ctx = gsap.context(() => {
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -97,6 +98,8 @@ export function HeroHint({ visible, loading }: HeroHintProps) {
       startBlur(loadingRef.current ? 8 : 4)
     }, el)
 
+    applyVisibility(visible, false)
+
     return () => {
       blurTweenRef.current?.kill()
       ctx.revert()
@@ -117,7 +120,7 @@ export function HeroHint({ visible, loading }: HeroHintProps) {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 bottom-[9%] z-30 flex flex-col items-center gap-4 opacity-0 xl:hidden"
+      className="pointer-events-none absolute inset-x-0 bottom-[9%] z-30 flex flex-col items-center gap-4 xl:hidden"
     >
       <div className="flex items-center gap-2.5">
         <span className="hint-dot h-2.5 w-2.5 rounded-full dark:bg-white dark:shadow-[0_0_14px_rgba(255,255,255,0.85)] bg-black shadow-[0_0_14px_rgba(0,0,0,0.4)]" />
@@ -125,7 +128,7 @@ export function HeroHint({ visible, loading }: HeroHintProps) {
         <span className="hint-dot h-2.5 w-2.5 rounded-full dark:bg-white dark:shadow-[0_0_14px_rgba(255,255,255,0.85)] bg-black shadow-[0_0_14px_rgba(0,0,0,0.4)]" />
       </div>
 
-      <p className="hint-shimmer flex flex-wrap justify-center bg-[length:200%_100%] bg-linear-to-r dark:from-white/55 dark:via-white dark:to-white/55 bg-clip-text font-libertine text-2xl italic text-transparent drop-shadow-[0_1px_12px_rgba(0,0,0,0.3)] from-black/80 via-black to-black/80 sm:text-4xl md:text-5xl">
+      <p className="hint-shimmer flex flex-wrap justify-center bg-[length:200%_100%] bg-linear-to-r dark:from-white/55 dark:via-white dark:to-white/55 bg-clip-text font-libertine text-2xl font-semibold italic text-transparent drop-shadow-[0_1px_14px_rgba(0,0,0,0.35)] from-black via-black to-black sm:text-4xl md:text-5xl">
         {Array.from(PHRASE).map((ch, i) =>
           ch === ' ' ? (
             <span key={`s-${i}`} className="inline-block w-[0.3em]" />
