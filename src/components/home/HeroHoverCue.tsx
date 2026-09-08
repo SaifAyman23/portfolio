@@ -48,7 +48,7 @@ export function HeroHoverCue({ visible }: { visible: boolean }) {
     <div
       ref={rootRef}
       aria-hidden="true"
-      className="pointer-events-none absolute left-1/2 top-[26%] z-20 w-[min(92vw,680px)] -translate-x-1/2 rotate-[-2deg] overflow-hidden rounded-lg bg-white py-2 opacity-0"
+      className="pointer-events-none absolute left-1/2 top-[26%] z-20 w-[min(92vw,680px)] -translate-x-1/2 rotate-[-2deg] overflow-hidden rounded-lg bg-white py-2 opacity-0 sm:top-[23%] md:top-[20%] lg:top-[18%]"
     >
       <div
         ref={trackRef}

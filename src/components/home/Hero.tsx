@@ -229,21 +229,30 @@ function Hero() {
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute end-[45%] -bottom-5 w-60 sm:w-150"
+              width={1920}
+              height={1080}
+              className="absolute end-[45%] -bottom-5 h-auto w-[29.3vw] max-w-none object-contain"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
             <img
               src={fungi2}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute end-[25%] bottom-0 w-64 lg:max-xl:bottom-14 sm:w-150"
+              width={1920}
+              height={1080}
+              className="absolute end-[25%] bottom-0 h-auto w-[29.3vw] max-w-none object-contain lg:max-xl:bottom-14"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
             <img
               src={fungi5}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute start-[10%] bottom-10 w-52 lg:max-xl:bottom-28 sm:w-150"
+              width={1920}
+              height={1080}
+              className="absolute start-[10%] bottom-10 h-auto w-[29.3vw] max-w-none object-contain lg:max-xl:bottom-28"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
           </div>
 
@@ -257,21 +266,30 @@ function Hero() {
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute end-[0%] -bottom-16 w-60 rotate-30 sm:-bottom-40 sm:w-150 lg:max-xl:bottom-4"
+              width={1057}
+              height={1039}
+              className="absolute end-[0%] -bottom-16 h-auto w-[29.3vw] max-w-none rotate-[30deg] object-contain sm:-bottom-40 lg:max-xl:bottom-4"
+              style={{ aspectRatio: '1057 / 1039' }}
             />
             <img
               src={plants2}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute end-[40%] bottom-10 w-32 sm:w-100 lg:max-xl:bottom-16"
+              width={1920}
+              height={1080}
+              className="absolute end-[40%] bottom-10 h-auto w-[19.5vw] max-w-none object-contain lg:max-xl:bottom-16"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
             <img
               src={plants4}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute -start-[35%] -bottom-[45%] w-250 sm:w-400"
+              width={1920}
+              height={1080}
+              className="absolute -start-[35%] -bottom-[45%] h-auto w-[78.2vw] max-w-none object-contain"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
           </div>
 
@@ -285,21 +303,30 @@ function Hero() {
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute -start-20 top-[42%] w-72 sm:-start-40 sm:top-130 sm:w-300"
+              width={1920}
+              height={1080}
+              className="absolute start-[-7.8vw] top-[54%] h-auto w-[58.6vw] max-w-none object-contain"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
             <img
               src={cloud11}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute start-6 top-[46%] w-80 sm:start-60 sm:top-130 sm:w-300"
+              width={1920}
+              height={1080}
+              className="absolute start-[11.7vw] top-[55.5%] h-auto w-[58.6vw] max-w-none object-contain"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
             <img
               src={cloud9}
               alt=""
               loading="lazy"
               decoding="async"
-              className="absolute -end-14 top-[44%] w-72 sm:-end-50 sm:top-130 sm:w-300"
+              width={1920}
+              height={1080}
+              className="absolute end-[-9.7vw] top-[54%] h-auto w-[58.6vw] max-w-none object-contain"
+              style={{ aspectRatio: '1920 / 1080' }}
             />
           </div>
 

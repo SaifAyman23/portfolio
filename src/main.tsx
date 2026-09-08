@@ -19,6 +19,12 @@ function hideSkeleton() {
   setTimeout(() => skeleton.remove(), 300)
 }
 
+const logViewport = () => {
+  console.log(`viewport: ${window.innerWidth} * ${window.innerHeight}`)
+}
+logViewport()
+window.addEventListener('resize', logViewport)
+
 if (document.readyState === 'complete') {
   hideSkeleton()
 } else {

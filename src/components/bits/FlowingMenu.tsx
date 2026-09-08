@@ -178,13 +178,13 @@ const MenuItem: React.FC<MenuItemProps> = ({
       onMouseLeave={handleMouseLeave}
     >
       <div
-        className="flex cursor-pointer select-none items-center justify-between px-8 py-8 md:px-12"
+        className="flex cursor-pointer select-none flex-col items-start gap-1 px-6 py-6 sm:px-8 md:flex-row md:items-center md:justify-between md:px-12 md:py-8"
         style={{ color: textColor }}
       >
-        <span className="font-heading text-3xl uppercase leading-none tracking-tight sm:text-4xl md:text-5xl">
+        <span className="font-heading text-2xl uppercase leading-none tracking-tight sm:text-3xl md:text-5xl">
           {title}
         </span>
-        <span className="text-sm opacity-50">{`${techs.length} tools`}</span>
+        <span className="text-xs opacity-50 sm:text-sm">{`${techs.length} tools`}</span>
       </div>
 
       <div

@@ -128,20 +128,8 @@ export function HeroHint({ visible, loading }: HeroHintProps) {
         <span className="hint-dot h-2.5 w-2.5 rounded-full dark:bg-white dark:shadow-[0_0_14px_rgba(255,255,255,0.85)] bg-black shadow-[0_0_14px_rgba(0,0,0,0.4)]" />
       </div>
 
-      <p className="hint-shimmer flex flex-wrap justify-center bg-[length:200%_100%] bg-linear-to-r dark:from-white/55 dark:via-white dark:to-white/55 bg-clip-text font-libertine text-2xl font-semibold italic text-transparent drop-shadow-[0_1px_14px_rgba(0,0,0,0.35)] from-black via-black to-black sm:text-4xl md:text-5xl">
-        {Array.from(PHRASE).map((ch, i) =>
-          ch === ' ' ? (
-            <span key={`s-${i}`} className="inline-block w-[0.3em]" />
-          ) : (
-            <span key={`l-${i}`} className="hint-letter inline-block will-change-transform">
-              {ch}
-            </span>
-          )
-        )}
-      </p>
-
       <div className="hint-scroll flex flex-col items-center gap-1">
-        <span className="text-[0.65rem] uppercase tracking-[0.35em] dark:text-white/65 text-black/70">
+        <span className="font-libertine text-sm italic tracking-[0.35em] dark:text-white/65 text-black/70 sm:text-[0.92rem]">
           scroll
         </span>
         <span className="hint-chevron block h-2.5 w-2.5 rotate-45 border-b-2 border-r-2 dark:border-white/65 border-black/70" />
