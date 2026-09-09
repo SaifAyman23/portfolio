@@ -1,88 +1,150 @@
-# Saif Eldin Ayman
+<p align="center">
+  <img src="src/assets/img/Saif Eldin Ayman.svg" alt="Saif Eldin Ayman" width="520" />
+</p>
 
-Full-stack engineer. This is my portfolio — the work, the thinking behind it, and the code that ships it.
+<p align="center">
+  <b>Full-stack engineer — React × Django × Real-time</b><br/>
+  <i>Two years shipping ERPs, delivery platforms, AI tools and live-stream infra. Fast, accessible, SEO-solid.</i>
+</p>
 
-Production-grade products end to end: Django APIs and real-time systems underneath, React interfaces and a real-time WebGL shader up front. Fast by default, accessible by standard, SEO-solid by design.
+<p align="center">
+  <a href="https://saifayman23.github.io/portfolio/"><img src="https://img.shields.io/badge/Live-Demo-0ea5e9?style=for-the-badge&logo=github&logoColor=white" alt="Live Demo" /></a>
+  <a href="https://github.com/SaifAyman23/portfolio/actions"><img src="https://img.shields.io/github/actions/workflow/status/SaifAyman23/portfolio/ci.yml?branch=main&label=CI&style=flat-square&logo=github" alt="CI" /></a>
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white" alt="React" />
+  <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TS" />
+  <img src="https://img.shields.io/badge/Vite-7-646CFF?style=flat-square&logo=vite&logoColor=white" alt="Vite" />
+  <img src="https://img.shields.io/badge/Tailwind-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white" alt="Tailwind" />
+</p>
+
+<p align="center">
+  <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,nodejs,postgres,redis,docker,git,figma&perline=10" alt="stack icons" />
+</p>
+
+<p align="center">
+  <code>react</code> <code>typescript</code> <code>vite</code> <code>tailwind</code> <code>gsap</code> <code>ogl</code> <code>zustand</code> <code>tanstack-query</code> <code>radix-ui</code> <code>vitest</code> <code>a11y</code> <code>seo</code>
+</p>
 
 ---
 
-## Stack
+## ✨ What this is
 
-| Layer        | Tech                                       |
-| ------------ | ------------------------------------------ |
-| Framework    | React 19 + TypeScript (strict)             |
-| Bundler      | Vite 7 — HMR, code splitting               |
-| Styling      | Tailwind CSS v4 + CSS variable tokens      |
-| UI           | Radix UI primitives via shadcn/ui          |
-| Motion       | `motion` (Framer Motion v12), GSAP         |
-| Shaders / FX | `ogl` (WebGL/GLSL) — hero only             |
-| State        | Zustand (client) · TanStack Query (server) |
-| HTTP         | Axios with auth interceptors               |
-| Routing      | React Router v7, fully lazy-loaded         |
-| Testing      | Vitest + RTL + axe-core a11y scans         |
+Personal portfolio — first impression is the code. Dark-leaning, atmospheric, engineering-grade underneath.
 
-## Local Setup
+- **Hero** — WebGL paper + `75%` ratio-tuned fungi/plants/clouds (`vw/%` from `2048` baseline), GSAP pin + `TornText` hover
+- **Work** — pinned horizontal scrub on desktop (`768–2560`), GSAP blur carousel with blue ray on mobile / `>4xl`
+- **Experience • Skills • About • Gallery** — `ScrollReveal`, `DarkVeil` (`ogl`), `FlowingMenu`, `AccordionGallery`
+- **Perf** — `LCP <2.5s`, `CLS≈0`, `TBT <200ms` — WebP, `fetchPriority`, non-blocking fonts, skeleton until `window.load`
+
+Live: **https://saifayman23.github.io/portfolio/**
+
+---
+
+## 🛠️ Stack
+
+| Layer | Tech |
+|---|---|
+| Framework | **React 19** + **TypeScript (strict)** |
+| Bundler | **Vite 7** — HMR, `manualChunks` |
+| Styling | **Tailwind CSS v4** + CSS-variable tokens |
+| UI | **Radix UI** via **shadcn/ui** + **Lucide** |
+| Motion | **GSAP** + `motion` (Framer) — `transform/opacity` only, `prefers-reduced-motion` |
+| Shaders | **ogl** (`DarkVeil` WebGL) — isolated, pausa-ble |
+| State | **Zustand** (persisted) + **TanStack Query v5** |
+| HTTP | **Axios** + auth interceptor |
+| Routing | **React Router v7** — fully `lazy()` |
+| Testing | **Vitest + RTL + axe-core** |
+
+---
+
+## 🚀 Quick start
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/SaifAyman23/portfolio.git
 cd portfolio
 npm install
-npm run dev
+cp .env.example .env   # fill VITE_*
+npm run dev            # http://localhost:5173
 ```
 
-Open `http://localhost:5173`. Node 20+, npm 10+.
-
-## Scripts
-
-| Command             | What it does                                 |
-| ------------------- | -------------------------------------------- |
-| `npm run dev`       | Dev server with HMR                          |
-| `npm run build`     | Production build → `dist/`                   |
-| `npm run preview`   | Preview the production build locally         |
-| `npm run check`     | Full gate: typecheck + lint + format + tests |
-| `npm run typecheck` | `tsc -b --noEmit`                            |
-| `npm run lint`      | ESLint (flat config)                         |
-| `npm run format`    | Prettier write across the repo               |
-
-## Architecture
-
-- **Thin pages, real components** — pages orchestrate; UI lives in `components/<domain>/` with barrel exports
-- **Design tokens** — every color/radius/shadow is a CSS variable exposed as a Tailwind utility
-- **Every state designed** — loading, empty, error, success
-- **Motion with discipline** — GPU-friendly transforms/opacity, disabled under `prefers-reduced-motion`
-- **Accessibility as baseline** — skip links, `:focus-visible`, semantic HTML, axe-core tests in CI
-
-Full conventions live in [AGENTS.md](./AGENTS.md).
-
-## Quality Gates
-
-CI runs on every push and PR:
-
-```
-typecheck → lint → format:check → tests → build
-```
-
-Red pipeline means no merge. Performance targets follow the Web Vitals playbook in AGENTS.md Part C (LCP < 2.5s, CLS ≈ 0, INP < 200ms).
-
-## Environment
-
-Copy `.env.example` to `.env`:
-
-| Variable             | Purpose                              |
-| -------------------- | ------------------------------------ |
-| `VITE_API_URL`       | Backend API base URL                 |
-| `VITE_APP_NAME`      | Display name                         |
-| `VITE_SITE_URL`      | Canonical URL (SEO, sitemap, robots) |
-| `VITE_CONTACT_EMAIL` | Email shown in hero contact bar      |
-| `VITE_GITHUB_URL`    | GitHub profile link                  |
-| `VITE_LINKEDIN_URL`  | LinkedIn profile link                |
-
-Never commit populated `.env` files.
-
-## Deploy
-
-Static SPA build in `dist/`. Ships cleanly to Vercel (`vercel.json` included), Netlify, or Cloudflare Pages. Docker dev setup included (`Dockerfile.dev`, `docker-compose.yml`). Configure the host to rewrite all paths to `index.html`.
+> Node 20+ / npm 10+
 
 ---
 
-Saif Eldin Ayman — React · TypeScript · Django · Real-time Systems
+## 📜 Scripts
+
+| Command | What it does |
+|---|---|
+| `npm run dev` | Dev + HMR |
+| `npm run build` | `tsc -b && vite build` → `dist/` |
+| `npm run preview` | Preview `dist/` |
+| `npm run check` | **Gate**: `typecheck → lint → format:check → test → build` |
+| `npm run typecheck` | `tsc -b --noEmit` |
+| `npm run lint` | ESLint flat |
+| `npm run format` | Prettier write |
+| `npm run test` | Vitest + axe |
+
+---
+
+## 🗂️ Structure
+
+```
+src/
+├── api/              # 3-file per domain: endpoints + hooks + index
+├── components/
+│   ├── bits/         # MagicBento, DarkVeil, ScrollReveal, FlowingMenu
+│   ├── home/         # Hero (ratio vw), Experience, Skills, Projects, Gallery, Footer
+│   ├── ui/           # shadcn primitives
+│   └── layout/       # Navbar, theme
+├── lib/              # seo, constants, smoothScroll (Lenis)
+├── pages/            # thin lazy orchestrators
+├── store/auth/       # Zustand persisted
+└── test/             # Vitest + axe
+```
+
+Full conventions → [`AGENTS.md`](./AGENTS.md)
+
+---
+
+## ⚡ Perf & SEO
+
+- Images **WebP** (`92KB` not `1.4MB PNG`), `width/height` + `fetchPriority="high"` for LCP, `loading="lazy"` below fold
+- Fonts non-blocking `media="print" onload`, `font-display: swap`
+- `manualChunks` vendor splits + `lazy()` routes, skeleton `#loading-skeleton` until `load` + 20s fallback
+- `robots.txt` + `sitemap.xml` via Vite `siteFiles` plugin, `SeoUpdater` per-route
+
+---
+
+## 🔧 Env
+
+Copy `.env.example` → `.env` (never commit `.env`):
+
+```
+VITE_API_URL=https://api.example.com/api/v1
+VITE_APP_NAME=Portfolio
+VITE_SITE_URL=https://saifayman23.github.io/portfolio
+VITE_CONTACT_EMAIL=
+VITE_GITHUB_URL=
+VITE_LINKEDIN_URL=
+```
+
+Typed in `src/vite-env.d.ts`.
+
+---
+
+## 📦 Deploy
+
+`dist/` is static. Host is **GitHub Pages** (`gh-pages`):
+
+```bash
+npm run build
+npm run deploy   # → gh-pages -d dist
+```
+
+SPA: rewrite all paths to `index.html`.
+
+---
+
+<p align="center">
+  <i>Saif Eldin Ayman — Ship it & forget it ®</i><br/>
+  <a href="https://github.com/SaifAyman23/portfolio">★ Star if you like the craft</a>
+</p>
