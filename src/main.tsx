@@ -20,7 +20,7 @@ function hideSkeleton() {
 }
 
 const logViewport = () => {
-  console.log(`viewport: ${window.innerWidth} * ${window.innerHeight}`)
+  console.warn(`viewport: ${window.innerWidth} * ${window.innerHeight}`)
 }
 logViewport()
 window.addEventListener('resize', logViewport)

@@ -6,8 +6,6 @@ interface HeroHintProps {
   loading: boolean
 }
 
-const PHRASE = 'the story begins with a name'
-
 export function HeroHint({ visible, loading }: HeroHintProps) {
   const rootRef = useRef<HTMLDivElement>(null)
   const loadingRef = useRef(loading)
@@ -75,15 +73,6 @@ export function HeroHint({ visible, loading }: HeroHintProps) {
           duration: 2.2,
           repeat: -1,
           ease: 'none',
-        })
-
-        gsap.to(el.querySelectorAll('.hint-letter'), {
-          yPercent: -22,
-          duration: 1,
-          ease: 'sine.inOut',
-          repeat: -1,
-          yoyo: true,
-          stagger: { each: 0.045, from: 'center' },
         })
 
         gsap.to(el.querySelector('.hint-chevron'), {

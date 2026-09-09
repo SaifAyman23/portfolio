@@ -9,8 +9,6 @@ import { projects } from '@/lib/projects'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const SCROLL_DISTANCE = (count: number) => `+=${(count - 1) * 110}%`
-
 export default function Projects() {
   const rootRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
@@ -61,6 +59,7 @@ export default function Projects() {
         force3D: true,
       })
     })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const goTo = (next: number) => {
@@ -79,7 +78,13 @@ export default function Projects() {
       return
     }
     animatingRef.current = true
-    gsap.set(incoming, { autoAlpha: 0, filter: 'blur(14px)', scale: 1.04, rotationY: 6, force3D: true })
+    gsap.set(incoming, {
+      autoAlpha: 0,
+      filter: 'blur(14px)',
+      scale: 1.04,
+      rotationY: 6,
+      force3D: true,
+    })
     if (ray) gsap.set(ray, { xPercent: -120, opacity: 0, force3D: true })
 
     const tl = gsap.timeline({
@@ -91,15 +96,52 @@ export default function Projects() {
     })
     tl.to(
       current,
-      { autoAlpha: 0, filter: 'blur(14px)', scale: 0.96, rotationY: -6, duration: 0.42, ease: 'power2.in', force3D: true },
+      {
+        autoAlpha: 0,
+        filter: 'blur(14px)',
+        scale: 0.96,
+        rotationY: -6,
+        duration: 0.42,
+        ease: 'power2.in',
+        force3D: true,
+      },
       0
     )
-      .to(ray, { xPercent: 120, opacity: 1, duration: 0.55, ease: 'power2.inOut', force3D: true }, 0.08)
+      .to(
+        ray,
+        { xPercent: 120, opacity: 1, duration: 0.55, ease: 'power2.inOut', force3D: true },
+        0.08
+      )
       .to(ray, { opacity: 0, duration: 0.22, ease: 'power2.out' }, 0.42)
-      .to(incoming, { autoAlpha: 1, filter: 'blur(0px)', scale: 1, rotationY: 0, duration: 0.58, ease: 'power3.out', force3D: true }, 0.18)
+      .to(
+        incoming,
+        {
+          autoAlpha: 1,
+          filter: 'blur(0px)',
+          scale: 1,
+          rotationY: 0,
+          duration: 0.58,
+          ease: 'power3.out',
+          force3D: true,
+        },
+        0.18
+      )
     if (prevDot && nextDot) {
-      tl.to(prevDot, { width: 8, backgroundColor: 'rgba(113,113,122,0.3)', duration: 0.38, ease: 'power2.inOut' }, 0)
-      tl.to(nextDot, { width: 28, backgroundColor: 'rgb(24,24,27)', duration: 0.38, ease: 'power2.inOut' }, 0)
+      tl.to(
+        prevDot,
+        {
+          width: 8,
+          backgroundColor: 'rgba(113,113,122,0.3)',
+          duration: 0.38,
+          ease: 'power2.inOut',
+        },
+        0
+      )
+      tl.to(
+        nextDot,
+        { width: 28, backgroundColor: 'rgb(24,24,27)', duration: 0.38, ease: 'power2.inOut' },
+        0
+      )
       tl.to(prevDot, { scale: 0.9, duration: 0.18, yoyo: true, repeat: 1 }, 0)
       tl.to(nextDot, { scale: 1.15, duration: 0.18, yoyo: true, repeat: 1 }, 0.18)
     }
@@ -126,7 +168,7 @@ export default function Projects() {
 
       <div className="px-5 py-6 md:hidden min-[2561px]:!block min-[2561px]:px-0">
         <div className="relative mx-auto w-full max-w-[680px]">
-          <div className="relative min-h-[660px] overflow-hidden rounded-2xl sm:min-h-[680px] [clip-path:inset(0_round_16px)]">
+          <div className="relative min-h-[720px] overflow-hidden rounded-2xl sm:min-h-[740px] [clip-path:inset(0_round_16px)]">
             {projects.map((project, i) => (
               <div
                 key={project.title}
@@ -149,7 +191,6 @@ export default function Projects() {
                 className="absolute -inset-x-[40%] top-1/2 h-[180%] -translate-y-1/2 rotate-[18deg] bg-gradient-to-r from-transparent via-sky-400/70 to-transparent opacity-0 will-change-transform dark:from-transparent dark:via-blue-900/80 dark:to-transparent"
                 style={{ filter: 'blur(7px)' }}
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-sky-500/[0.06] via-transparent to-blue-500/[0.08] opacity-60 dark:from-blue-950/[0.18] dark:via-transparent dark:to-sky-900/[0.14] dark:opacity-80" />
             </div>
           </div>
 
@@ -193,7 +234,10 @@ export default function Projects() {
         </div>
       </div>
 
-      <div ref={rootRef} className="relative hidden overflow-hidden bg-background md:block min-[2561px]:!hidden">
+      <div
+        ref={rootRef}
+        className="relative hidden overflow-hidden bg-background md:block min-[2561px]:!hidden"
+      >
         <div
           className="
             flex h-[100svh] min-h-[500px] w-full items-center overflow-hidden
