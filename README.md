@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,nodejs,postgres,redis,docker,git,figma&perline=10" alt="stack icons" />
+  <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,python,django,postgres,redis,docker,git,figma&perline=10" alt="stack icons" />
 </p>
 
 <p align="center">
@@ -41,18 +41,18 @@ Live: **https://saifayman23.github.io/portfolio/**
 
 ## 🛠️ Stack
 
-| Layer | Tech |
-|---|---|
-| Framework | **React 19** + **TypeScript (strict)** |
-| Bundler | **Vite 7** — HMR, `manualChunks` |
-| Styling | **Tailwind CSS v4** + CSS-variable tokens |
-| UI | **Radix UI** via **shadcn/ui** + **Lucide** |
-| Motion | **GSAP** + `motion` (Framer) — `transform/opacity` only, `prefers-reduced-motion` |
-| Shaders | **ogl** (`DarkVeil` WebGL) — isolated, pausa-ble |
-| State | **Zustand** (persisted) + **TanStack Query v5** |
-| HTTP | **Axios** + auth interceptor |
-| Routing | **React Router v7** — fully `lazy()` |
-| Testing | **Vitest + RTL + axe-core** |
+| Layer     | Tech                                                                              |
+| --------- | --------------------------------------------------------------------------------- |
+| Framework | **React 19** + **TypeScript (strict)**                                            |
+| Bundler   | **Vite 7** — HMR, `manualChunks`                                                  |
+| Styling   | **Tailwind CSS v4** + CSS-variable tokens                                         |
+| UI        | **Radix UI** via **shadcn/ui** + **Lucide**                                       |
+| Motion    | **GSAP** + `motion` (Framer) — `transform/opacity` only, `prefers-reduced-motion` |
+| Shaders   | **ogl** (`DarkVeil` WebGL) — isolated, pausa-ble                                  |
+| State     | **Zustand** (persisted) + **TanStack Query v5**                                   |
+| HTTP      | **Axios** + auth interceptor                                                      |
+| Routing   | **React Router v7** — fully `lazy()`                                              |
+| Testing   | **Vitest + RTL + axe-core**                                                       |
 
 ---
 
@@ -72,16 +72,16 @@ npm run dev            # http://localhost:5173
 
 ## 📜 Scripts
 
-| Command | What it does |
-|---|---|
-| `npm run dev` | Dev + HMR |
-| `npm run build` | `tsc -b && vite build` → `dist/` |
-| `npm run preview` | Preview `dist/` |
-| `npm run check` | **Gate**: `typecheck → lint → format:check → test → build` |
-| `npm run typecheck` | `tsc -b --noEmit` |
-| `npm run lint` | ESLint flat |
-| `npm run format` | Prettier write |
-| `npm run test` | Vitest + axe |
+| Command             | What it does                                               |
+| ------------------- | ---------------------------------------------------------- |
+| `npm run dev`       | Dev + HMR                                                  |
+| `npm run build`     | `tsc -b && vite build` → `dist/`                           |
+| `npm run preview`   | Preview `dist/`                                            |
+| `npm run check`     | **Gate**: `typecheck → lint → format:check → test → build` |
+| `npm run typecheck` | `tsc -b --noEmit`                                          |
+| `npm run lint`      | ESLint flat                                                |
+| `npm run format`    | Prettier write                                             |
+| `npm run test`      | Vitest + axe                                               |
 
 ---
 

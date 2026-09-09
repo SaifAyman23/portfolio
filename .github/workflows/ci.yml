@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
 
+# GH Pages via gh-pages -d dist (no Docker/Vercel)
 jobs:
   quality:
     name: Typecheck, Lint, Format, Tests, Build
