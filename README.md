@@ -3,8 +3,8 @@
 </p>
 
 <p align="center">
-  <b>Full-stack engineer — React × Django × Real-time</b><br/>
-  <i>Two years shipping ERPs, delivery platforms, AI tools and live-stream infra. Fast, accessible, SEO-solid.</i>
+  <b>Saif Eldin Ayman</b> — Full-stack engineer<br/>
+  React, Django, PostgreSQL, Real-time systems
 </p>
 
 <p align="center">
@@ -21,102 +21,88 @@
 </p>
 
 <p align="center">
-  <code>react</code> <code>typescript</code> <code>vite</code> <code>tailwind</code> <code>gsap</code> <code>ogl</code> <code>zustand</code> <code>tanstack-query</code> <code>radix-ui</code> <code>vitest</code> <code>a11y</code> <code>seo</code>
+  <code>react</code> <code>typescript</code> <code>vite</code> <code>tailwind</code> <code>gsap</code> <code>ogl</code> <code>zustand</code> <code>tanstack-query</code> <code>radix-ui</code> <code>vitest</code>
 </p>
 
----
+## What this is
 
-## ✨ What this is
+Portfolio for Saif Eldin Ayman. Work, projects and contact.
 
-Personal portfolio — first impression is the code. Dark-leaning, atmospheric, engineering-grade underneath.
-
-- **Hero** — WebGL paper + `75%` ratio-tuned fungi/plants/clouds (`vw/%` from `2048` baseline), GSAP pin + `TornText` hover
-- **Work** — pinned horizontal scrub on desktop (`768–2560`), GSAP blur carousel with blue ray on mobile / `>4xl`
-- **Experience • Skills • About • Gallery** — `ScrollReveal`, `DarkVeil` (`ogl`), `FlowingMenu`, `AccordionGallery`
-- **Perf** — `LCP <2.5s`, `CLS≈0`, `TBT <200ms` — WebP, `fetchPriority`, non-blocking fonts, skeleton until `window.load`
+- **Hero** — ratio tuned graphics from `75%` baseline at `2048` using `vw` and `%`, WebP paper, GSAP pin
+- **Work** — horizontal scrub on desktop `768` to `2560`, blur carousel with blue ray on mobile and above `4xl`
+- **Sections** — `ScrollReveal`, `DarkVeil` with `ogl`, `FlowingMenu`, `AccordionGallery`
+- **Perf** — WebP, `fetchPriority`, non blocking fonts, skeleton until `load`
 
 Live: **https://saifayman23.github.io/portfolio/**
 
----
+## Stack
 
-## 🛠️ Stack
+| Layer     | Tech                                                 |
+| --------- | ---------------------------------------------------- |
+| Framework | **React 19** + **TypeScript (strict)**               |
+| Bundler   | **Vite 7** — HMR, `manualChunks`                     |
+| Styling   | **Tailwind CSS v4** + CSS variable tokens            |
+| UI        | **Radix UI** via **shadcn/ui** + **Lucide**          |
+| Motion    | **GSAP** + `motion` — `transform` and `opacity` only |
+| Shaders   | **ogl** (`DarkVeil`)                                 |
+| State     | **Zustand** (persisted) + **TanStack Query v5**      |
+| HTTP      | **Axios** + auth interceptor                         |
+| Routing   | **React Router v7** — `lazy()`                       |
+| Testing   | **Vitest + RTL + axe-core**                          |
 
-| Layer     | Tech                                                                              |
-| --------- | --------------------------------------------------------------------------------- |
-| Framework | **React 19** + **TypeScript (strict)**                                            |
-| Bundler   | **Vite 7** — HMR, `manualChunks`                                                  |
-| Styling   | **Tailwind CSS v4** + CSS-variable tokens                                         |
-| UI        | **Radix UI** via **shadcn/ui** + **Lucide**                                       |
-| Motion    | **GSAP** + `motion` (Framer) — `transform/opacity` only, `prefers-reduced-motion` |
-| Shaders   | **ogl** (`DarkVeil` WebGL) — isolated, pausa-ble                                  |
-| State     | **Zustand** (persisted) + **TanStack Query v5**                                   |
-| HTTP      | **Axios** + auth interceptor                                                      |
-| Routing   | **React Router v7** — fully `lazy()`                                              |
-| Testing   | **Vitest + RTL + axe-core**                                                       |
-
----
-
-## 🚀 Quick start
+## Quick start
 
 ```bash
 git clone https://github.com/SaifAyman23/portfolio.git
 cd portfolio
 npm install
-cp .env.example .env   # fill VITE_*
+cp .env.example .env
 npm run dev            # http://localhost:5173
 ```
 
 > Node 20+ / npm 10+
 
----
+## Scripts
 
-## 📜 Scripts
+| Command             | What it does                                 |
+| ------------------- | -------------------------------------------- |
+| `npm run dev`       | Dev + HMR                                    |
+| `npm run build`     | `tsc -b && vite build` to `dist/`            |
+| `npm run preview`   | Preview `dist/`                              |
+| `npm run check`     | `typecheck, lint, format:check, test, build` |
+| `npm run typecheck` | `tsc -b --noEmit`                            |
+| `npm run lint`      | ESLint flat                                  |
+| `npm run format`    | Prettier write                               |
+| `npm run test`      | Vitest + axe                                 |
 
-| Command             | What it does                                               |
-| ------------------- | ---------------------------------------------------------- |
-| `npm run dev`       | Dev + HMR                                                  |
-| `npm run build`     | `tsc -b && vite build` → `dist/`                           |
-| `npm run preview`   | Preview `dist/`                                            |
-| `npm run check`     | **Gate**: `typecheck → lint → format:check → test → build` |
-| `npm run typecheck` | `tsc -b --noEmit`                                          |
-| `npm run lint`      | ESLint flat                                                |
-| `npm run format`    | Prettier write                                             |
-| `npm run test`      | Vitest + axe                                               |
-
----
-
-## 🗂️ Structure
+## Structure
 
 ```
 src/
-├── api/              # 3-file per domain: endpoints + hooks + index
+├── api/              # 3 files per domain: endpoints + hooks + index
 ├── components/
-│   ├── bits/         # MagicBento, DarkVeil, ScrollReveal, FlowingMenu
-│   ├── home/         # Hero (ratio vw), Experience, Skills, Projects, Gallery, Footer
+│   ├── bits/         # DarkVeil, ScrollReveal, FlowingMenu
+│   ├── home/         # Hero, Experience, Skills, Projects, Gallery, Footer
 │   ├── ui/           # shadcn primitives
 │   └── layout/       # Navbar, theme
-├── lib/              # seo, constants, smoothScroll (Lenis)
-├── pages/            # thin lazy orchestrators
+├── lib/              # seo, constants, smoothScroll
+├── pages/            # lazy orchestrators
 ├── store/auth/       # Zustand persisted
 └── test/             # Vitest + axe
 ```
 
-Full conventions → [`AGENTS.md`](./AGENTS.md)
+Full conventions in [`AGENTS.md`](./AGENTS.md)
 
----
+## Perf and SEO
 
-## ⚡ Perf & SEO
+- WebP with `width` and `height`, `fetchPriority` for LCP, `loading lazy` below fold
+- Fonts non blocking with `font-display: swap`
+- `manualChunks` splits + `lazy()` routes, skeleton until `load`
+- `robots.txt` + `sitemap.xml` via Vite plugin, `SeoUpdater` per route
 
-- Images **WebP** (`92KB` not `1.4MB PNG`), `width/height` + `fetchPriority="high"` for LCP, `loading="lazy"` below fold
-- Fonts non-blocking `media="print" onload`, `font-display: swap`
-- `manualChunks` vendor splits + `lazy()` routes, skeleton `#loading-skeleton` until `load` + 20s fallback
-- `robots.txt` + `sitemap.xml` via Vite `siteFiles` plugin, `SeoUpdater` per-route
+## Env
 
----
-
-## 🔧 Env
-
-Copy `.env.example` → `.env` (never commit `.env`):
+Copy `.env.example` to `.env`:
 
 ```
 VITE_API_URL=https://api.example.com/api/v1
@@ -129,22 +115,13 @@ VITE_LINKEDIN_URL=
 
 Typed in `src/vite-env.d.ts`.
 
----
+## Deploy
 
-## 📦 Deploy
-
-`dist/` is static. Host is **GitHub Pages** (`gh-pages`):
+`dist/` is static. Host is GitHub Pages:
 
 ```bash
 npm run build
-npm run deploy   # → gh-pages -d dist
+npm run deploy
 ```
 
 SPA: rewrite all paths to `index.html`.
-
----
-
-<p align="center">
-  <i>Saif Eldin Ayman — Ship it & forget it ®</i><br/>
-  <a href="https://github.com/SaifAyman23/portfolio">★ Star if you like the craft</a>
-</p>
