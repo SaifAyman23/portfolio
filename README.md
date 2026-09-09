@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,python,django,postgres,redis,docker,git,figma&perline=10" alt="stack icons" />
+  <img src="https://skillicons.dev/icons?i=react,ts,tailwind,vite,python,django,postgres,redis,docker,figma&perline=10" alt="stack icons" />
 </p>
 
 <p align="center">
