@@ -80,7 +80,6 @@ export default defineConfig(({ mode }) => {
               '@radix-ui/react-label',
             ],
             'vendor-gsap': ['gsap'],
-            'vendor-three': ['three'],
           },
         },
       },
