@@ -197,10 +197,10 @@ function Hero() {
   }, [])
 
   return (
-    <section ref={sectionRef} className="relative h-[200vh] overflow-hidden bg-background">
+    <section ref={sectionRef} className="relative h-[200svh] overflow-hidden bg-background">
       <div
         ref={pinRef}
-        className="flex h-screen w-full max-w-full items-stretch justify-stretch overflow-hidden"
+        className="flex h-svh w-full max-w-full items-stretch justify-stretch overflow-hidden"
       >
         <div
           ref={gradientRef}

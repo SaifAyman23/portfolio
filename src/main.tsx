@@ -1,4 +1,3 @@
-import { QueryClientProvider } from '@tanstack/react-query'
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 
@@ -7,7 +6,6 @@ import App from './App.tsx'
 
 import { ThemeProvider } from '@/components/theme/ThemeProvider'
 import { APP_NAME } from '@/lib/constants'
-import { queryClient } from '@/lib/queryClient'
 import { initSmoothScroll } from '@/lib/smoothScroll'
 
 initSmoothScroll()
@@ -18,12 +16,6 @@ function hideSkeleton() {
   skeleton.style.opacity = '0'
   setTimeout(() => skeleton.remove(), 300)
 }
-
-const logViewport = () => {
-  console.warn(`viewport: ${window.innerWidth} * ${window.innerHeight}`)
-}
-logViewport()
-window.addEventListener('resize', logViewport)
 
 if (document.readyState === 'complete') {
   hideSkeleton()
@@ -39,10 +31,8 @@ if (!rootElement) {
 
 createRoot(rootElement).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="system" storageKey={`${APP_NAME}-theme`}>
-        <App />
-      </ThemeProvider>
-    </QueryClientProvider>
+    <ThemeProvider defaultTheme="system" storageKey={`${APP_NAME}-theme`}>
+      <App />
+    </ThemeProvider>
   </StrictMode>
 )

@@ -38,7 +38,7 @@ export default function HeroContactBar() {
         )}
         <a
           href={
-            'https://drive.google.com/file/d/1OpzN5YNosHrEHZgwcRois3GUPISZ9ktk/view?usp=sharing'
+            'https://drive.google.com/file/d/1rG--T_GI7gyJQvjFCK1sPOXa-sLMYbUX/view?usp=sharing'
           }
           target="_blank"
           rel="noreferrer"
